@@ -19,14 +19,8 @@ class HomeController extends Controller
     {
         $slides=Slide::with('photos')->get();
         $latestProduct=Product::orderby('created_at','desc')->limit(10)->get();
-        $featured=Product::all();
-        $featuredProduct[]=null;
-        foreach ($featured as $f){
-            if ($f->discount_price){
-                $featuredProduct
-            }
-        }
-        return view('frontend.home.index',compact(['latestProduct','slides']));
+        $featuredProduct=Product::WhereNotNull('discount_price')->limit(10)->get();
+        return view('frontend.home.index',compact(['latestProduct','slides','featuredProduct']));
     }
 
     /**

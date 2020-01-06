@@ -55,7 +55,7 @@
                         </div>
                         <div id="tab-featured" class="tab_content">
                             <div class="owl-carousel product_carousel_tab">
-                                @foreach($latestProduct as $product)
+                                @foreach($featuredProduct as $product)
                                     <div class="product-thumb">
                                         <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}"><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
                                         <div class="caption">
