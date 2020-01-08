@@ -47,12 +47,20 @@ Route::prefix('admins')->group(function (){
    Route::resource('coupons','Backend\CouponController');
    Route::get('slides.delete/{id}','Backend\SlideController@delete')->name('slides.delete');
    Route::resource('slides','Backend\SlideController');
+   Route::resource('orders','Backend\OrderController');
+   Route::get('orders/lists/{id}','Backend\OrderController@getOrderLists')->name('orders.lists');
+   Route::get('comments','Backend\CommentController@index')->name('comments.index');
+   Route::patch('comments','Backend\CommentController@edit')->name('comments.edit');
+   Route::get('comments','Backend\CommentController@index')->name('comments.index');
+    Route::get('comments.delete/{id}','Backend\CommentController@delete')->name('comments.delete');
 });
 Route::group(['middleware'=>'auth'],function (){
-    Route::get('/profile','Auth\RegisterController@profile')->name('user.profile');
+    Route::get('/profile','Frontend\HomeController@profile')->name('user.profile');
     Route::post('/coupon','Frontend\CouponController@addCoupon')->name('coupon.add');
     Route::get('/order-verify','Frontend\OrderController@verify')->name('order.verify');
     Route::get('/payment-verify/{id}','Frontend\PaymentController@verify')->name('payment.verify');
+    Route::get('orders','Frontend\OrderController@index')->name('profile.orders');
+    Route::get('orders/lists/{id}','Frontend\OrderController@getOrderLists')->name('profile.orders.lists');
 });
 Route::resource('/','Frontend\HomeController');
 Route::get('verification','Auth\VerificationController@verify')->name('verification.verify');

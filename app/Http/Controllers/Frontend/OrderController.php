@@ -38,4 +38,15 @@ class OrderController extends Controller
                 }
             }
     }
+    public function index()
+    {
+        $orders=Order::paginate(20);
+        return view('frontend.profile.orders',compact(['orders']));
+    }
+
+    public function getOrderLists($id)
+    {
+        $order=Order::with('user','products.photos')->whereId($id)->first();
+        return view('frontend.profile.lists',compact(['order']));
+    }
 }

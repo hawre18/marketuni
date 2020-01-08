@@ -28,4 +28,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

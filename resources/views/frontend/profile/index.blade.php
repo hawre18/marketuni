@@ -16,7 +16,7 @@
                 <li><a href="#">حساب کاربری</a></li>
                 <li><a href="#">لیست آدرس ها</a></li>
                 <li><a href="wishlist.html">لیست علاقه مندی</a></li>
-                <li><a href="#">تاریخچه سفارشات</a></li>
+                <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
                 <li><a href="#">دانلود ها</a></li>
                 <li><a href="#">امتیازات خرید</a></li>
                 <li><a href="#">بازگشت</a></li>

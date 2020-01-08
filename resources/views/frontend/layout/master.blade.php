@@ -117,7 +117,11 @@
                 <div class="table-container">
                     <!-- Logo Start -->
                     <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
-                        <div id="logo"><a href="index.html"><img class="img-responsive" src="/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
+                        <div id="logo">
+                            <a href="index.html">
+                                <img class="img-responsive" src="/image/logo.png" title="MarketShop" alt="MarketShop" />
+                            </a>
+                        </div>
                     </div>
                     <!-- Logo End -->
                     <!-- Mini Cart Start-->
@@ -198,8 +202,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
-                        <li class="dropdown"><a href="{{route('category.index',['id'=>3])}}">پوشاک</a>
+                        <li class="dropdown"><a href="{{route('category.index',['id'=>3])}}">مردانه</a>
                             <div class="dropdown-menu">
                                 <ul>
                                     <li><a href="">آقایان <span>&rsaquo;</span></a>

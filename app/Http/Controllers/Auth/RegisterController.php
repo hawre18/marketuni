@@ -83,22 +83,19 @@ class RegisterController extends Controller
             'gender'=>$data['gender'],
             'province_id'=>$data['province'],
             'password'=>Hash::make($data['password']),
-        ]);
-       $address=new Address();
-       $address->address=$data->input('address');
-       $address->compny=$data->input('company');
-       $address->city_id=$data->input('city');
-       $address->province_id=$data->input('province');
-       $address->post_code=$data->input('post_code');
-       $address->user_id=1;
-       $address->save();
+        ],
+        $address=new Address(),
+        $address->address=$data['address'],
+        $address->city_id=$data['city'],
+        $address->province_id=$data['province'],
+        $address->post_code=$data['post_code'],
+        $address->user_id=1,
+        $address->save()
+        );
+
     }
 
-    public function profile()
-    {
-        $user=Auth::user();
-        return view('frontend.profile.index',compact(['user']));
-    }
+
 
     public function getAllProvince()
     {

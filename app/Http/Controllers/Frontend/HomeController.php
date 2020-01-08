@@ -7,6 +7,7 @@ use App\Product;
 use App\Province;
 use App\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -22,7 +23,11 @@ class HomeController extends Controller
         $featuredProduct=Product::WhereNotNull('discount_price')->limit(10)->get();
         return view('frontend.home.index',compact(['latestProduct','slides','featuredProduct']));
     }
-
+    public function profile()
+    {
+        $user=Auth::user();
+        return view('frontend.profile.index',compact(['user']));
+    }
     /**
      * Show the form for creating a new resource.
      *
