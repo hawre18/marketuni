@@ -4,25 +4,28 @@ namespace App\Http\Controllers\Frontend;
 
 use App\AttributeGroup;
 use App\Category;
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function getProduct($slug)
+    public function getProduct($id)
     {
-        $product=Product::whith(['photos','attributeValues.attributeGroup','brand','categories'])->first();
+        $product=Product::with(['photos','attributeValues.attributeGroup','brand','categories'])->whereId($id)->first();
+        $commentsProduct=Comment::with('user')->whereProduct_id($product->id)->orderBy('created_at','desc')
+            ->whereStatus('1')->get();
         $relatedProducts=Product::with('categories')->whereHas('categories',function ($q)use($product){
             $q->whereIn('id',$product->categories);
         })->get();
-        return view('frontend.products.index',compact(['product','relatedProducts']));
+        return view('frontend.products.index',compact(['product','relatedProducts','commentsProduct']));
     }
 
     public function getProductByCategory($id)
     {
         $category=Category::whereId($id)->first();
-        return view('frontend.categories.index',compact(['category','products']));
+        return view('frontend.categories.index',compact(['category']));
     }
     public function apiGetProduct($id)
     {

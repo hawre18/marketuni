@@ -202,10 +202,11 @@
             <div class="container">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown"><a href="{{route('category.index',['id'=>3])}}">مردانه</a>
+                        @foreach(App\Category::all() as $cat)
+                        <li class="dropdown"><a href="{{route('category.index',['id'=>$cat])}}">{{$cat->name}} </a>
                             <div class="dropdown-menu">
                                 <ul>
-                                    <li><a href="">آقایان <span>&rsaquo;</span></a>
+                                    <li><a href=""><span>&rsaquo;</span></a>
                                         <div class="dropdown-menu">
                                             <ul>
                                                 <li><a href="category.html">زیردسته ها </a> </li>
@@ -238,6 +239,7 @@
                                 </ul>
                             </div>
                         </li>
+                        @endforeach
                         <li class="dropdown"> <a href="category.html">الکترونیکی</a>
                             <div class="dropdown-menu">
                                 <ul>
