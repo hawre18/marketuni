@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="image/favicon.png" rel="icon" />
-    <title>مارکت شاپ - قالب HTML فروشگاهی</title>
+    <title>ساکا مارکت</title>
     <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
     <!-- CSS Part Start-->
     <link rel="stylesheet" type="text/css" href="/js/bootstrap/css/bootstrap.min.css" />
@@ -23,87 +22,34 @@
     <!-- CSS Part End-->
 </head>
 <body>
-<div class="wrapper-wide">
-    <div id="header">
+<div class="wrapper-wide" style="background-color: #edf7fa;">
+    <div id="header" >
         <!-- Top Bar Start-->
-        <nav id="top" class="htop">
-            <div class="container">
+        <nav id="top" class="htop" style="background-color: #edf7fa;">
+            <div class="container" style="background-color: #edf7fa;">
                 <div class="row"> <span class="drop-icon visible-sm visible-xs"><i class="fa fa-align-justify"></i></span>
                     <div class="pull-left flip left-top">
-                        <div class="links">
+                        <div class="links" style="border: none;">
                             <ul>
-                                <li class="mobile"><i class="fa fa-phone"></i>+21 9898777656</li>
-                                <li class="email"><a href="mailto:info@marketshop.com"><i class="fa fa-envelope"></i>info@marketshop.com</a></li>
-                                <li class="wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی<b></b></a>
-                                    <div class="dropdown-menu custom_block">
-                                        <ul>
-                                            <li>
-                                                <table>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td><img alt="" src="/image/banner/cms-block.jpg"></td>
-                                                        <td><img alt="" src="/image/banner/responsive.jpg"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><h4>بلاک های محتوا</h4></td>
-                                                        <td><h4>قالب واکنش گرا</h4></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="language" class="btn-group">
-                            <button class="btn-link dropdown-toggle" data-toggle="dropdown"> <span> <img src="/image/flags/gb.png" alt="انگلیسی" title="انگلیسی">انگلیسی <i class="fa fa-caret-down"></i></span></button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="btn btn-link btn-block language-select" type="button" name="GB"><img src="/image/flags/gb.png" alt="انگلیسی" title="انگلیسی" /> انگلیسی</button>
-                                </li>
-                                <li>
-                                    <button class="btn btn-link btn-block language-select" type="button" name="GB"><img src="/image/flags/ar.png" alt="عربی" title="عربی" /> عربی</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="currency" class="btn-group">
-                            <button class="btn-link dropdown-toggle" data-toggle="dropdown"> <span> تومان <i class="fa fa-caret-down"></i></span></button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="EUR">€ Euro</button>
-                                </li>
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="GBP">£ Pound Sterling</button>
-                                </li>
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="USD">$ USD</button>
-                                </li>
+                                <li class="mobile" style="background-color: #edf7fa; border: none;"><i class="fa fa-phone"></i>09184185360</li>
+                                <li class="email" style="background-color: #edf7fa;border: none;"><a href="mailto:info@marketshop.com"><i class="fa fa-envelope"></i>hawremi18@gmail.com</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div id="top-links" class="nav pull-right flip">
+                    <div id="top-links" class="nav pull-right flip" style="background-color: #edf7fa;border: none;">
                         @if(Auth::check())
                         <ul>
-                            <li><a href="{{route('logout')}}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">خروج</a></li>
-                            <li><a href="{{route('user.profile')}}">پروفایل کاربری</a></li>
+                            <li style="border: none;"><a href="{{route('logout')}}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i></a></li>
+                            <li style="border: none;"><a href="{{route('user.profile')}}"><i class="fa fa-user"></i></a></li>
                         </ul>
                         <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
                             @csrf
                         </form>
                         @else
                         <ul>
-                            <li><a href="{{route('login')}}">ورود</a></li>
-                            <li><a href="{{route('register')}}">ثبت نام</a></li>
+                            <li style="border: none;"><a href="{{route('login')}}"><i class="fa fa-sign-in"></i></a></li>
+                            <li style="border: none;"><a href="{{route('register')}}"><i class="fa fa-user-plus"></i></a></li>
                         </ul>
                         @endif
                     </div>
@@ -112,7 +58,7 @@
         </nav>
         <!-- Top Bar End-->
         <!-- Header Start-->
-        <header class="header-row">
+        <header class="header-row" style="background-color: #0f4c75;">
             <div class="container">
                 <div class="table-container">
                     <!-- Logo Start -->
@@ -184,9 +130,9 @@
                     </div>
                     <!-- Mini Cart End-->
                     <!-- جستجو Start-->
-                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner">
-                        <div id="search" class="input-group">
-                            <input id="filter_name" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" />
+                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" >
+                        <div id="search" class="input-group" >
+                            <input id="filter_name" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" style="background-color: #ffffff;color: #000000;" />
                             <button type="button" class="button-search"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
@@ -196,257 +142,55 @@
         </header>
         <!-- Header End-->
         <!-- Main آقایانu Start-->
-
-        <nav id="menu" class="navbar">
+        <nav id="menu" class="navbar" style="background-color: #edf7fa;">
             <div class="navbar-header"> <span class="visible-xs visible-sm"> منو <b></b></span></div>
-            <div class="container">
+            <div class="container" style="background-color: #0f4c75;border-radius:5px;">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        @foreach(App\Category::all() as $cat)
-                        <li class="dropdown"><a href="{{route('category.index',['id'=>$cat])}}">{{$cat->name}} </a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href=""><span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
+                        <li><a class="home_link" title="خانه" href="{{''}}">خانه</a></li>
+                        @foreach($categories=App\Category::where('parent_id',null)->get() as $cat)
+                            @if( $cat->parent_id == null )
+                                <li class="dropdown"><a href="{{route('category.index',['id'=>$cat])}}">{{$cat->name}}</a>
+                                    <div class="dropdown-menu">
+                                        @if(!$cat->children->isEmpty())
                                             <ul>
-                                                <li><a href="category.html">زیردسته ها </a> </li>
-                                                <li><a href="category.html">زیردسته ها </a> </li>
-                                                <li><a href="category.html">زیردسته ها </a> </li>
-                                                <li><a href="category.html">زیردسته ها </a> </li>
-                                                <li><a href="category.html">زیردسته جدید </a> </li>
+                                                @include('frontend.partials.menu',['categories'=>$cat->childrenRecursive, 'level'=>1])
                                             </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html" >بانوان</a> </li>
-                                    <li><a href="category.html">دخترانه<span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته ها </a></li>
-                                                <li><a href="category.html">زیردسته جدید</a></li>
-                                                <li><a href="category.html">زیردسته جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">پسرانه</a></li>
-                                    <li><a href="category.html">نوزاد</a></li>
-                                    <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endif
                         @endforeach
-                        <li class="dropdown"> <a href="category.html">الکترونیکی</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li> <a href="category.html">لپ تاپ <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li> <a href="category.html">زیردسته های جدید </a> </li>
-                                                <li> <a href="category.html">زیردسته های جدید </a> </li>
-                                                <li> <a href="category.html">زیردسته جدید </a> </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li> <a href="category.html">رومیزی <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li> <a href="category.html">زیردسته های جدید </a> </li>
-                                                <li> <a href="category.html">زیردسته جدید </a> </li>
-                                                <li> <a href="category.html">زیردسته جدید </a> </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li> <a href="category.html">دوربین <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li> <a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">موبایل و تبلت <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">صوتی و تصویری <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a> </li>
-                                                <li><a href="category.html">زیردسته جدید </a> </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">لوازم خانگی</a> </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">کفش</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="category.html">آقایان</a> </li>
-                                    <li><a href="category.html">بانوان <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید </a> </li>
-                                                <li><a href="category.html">زیردسته ها </a> </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html">دخترانه</a> </li>
-                                    <li><a href="category.html">پسرانه</a> </li>
-                                    <li><a href="category.html">نوزاد</a> </li>
-                                    <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                                        <div class="dropdown-menu">
-                                            <ul>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته های جدید</a></li>
-                                                <li><a href="category.html">زیردسته ها</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"> <a href="category.html">ساعت</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li> <a href="category.html">ساعت مردانه</a></li>
-                                    <li> <a href="category.html">ساعت زنانه</a></li>
-                                    <li> <a href="category.html">ساعت بچگانه</a></li>
-                                    <li> <a href="category.html">لوازم</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown"><a href="category.html">زیبایی و سلامت</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li> <a href="category.html">عطر و ادکلن</a></li>
-                                    <li> <a href="category.html">آرایشی</a></li>
-                                    <li> <a href="category.html">ضد آفتاب</a></li>
-                                    <li> <a href="category.html">مراقبت از پوست</a></li>
-                                    <li> <a href="category.html">مراقبت از چشم</a></li>
-                                    <li> <a href="category.html">مراقبت از مو</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu_brands dropdown"><a href="#">برند ها</a>
-                            <div class="dropdown-menu">
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="اپل" alt="اپل" /></a><a href="#">اپل</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="کنون" alt="کنون" /></a><a href="#">کنون</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"> <a href="#"><img src="/image/product/hp_logo-60x60.jpg" title="اچ پی" alt="اچ پی" /></a><a href="#">اچ پی</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/htc_logo-60x60.jpg" title="اچ تی سی" alt="اچ تی سی" /></a><a href="#">اچ تی سی</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/palm_logo-60x60.jpg" title="پالم" alt="پالم" /></a><a href="#">پالم</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/sony_logo-60x60.jpg" title="سونی" alt="سونی" /></a><a href="#">سونی</a> </div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test" alt="test" /></a><a href="#">تست</a> </div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="test 3" alt="test 3" /></a><a href="#">تست 3</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test 5" alt="test 5" /></a><a href="#">تست 5</a> </div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test 6" alt="test 6" /></a><a href="#">تست 6</a></div>
-                                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="test 7" alt="test 7" /></a><a href="#">تست 7</a> </div>
-
-
-                            </div>
-                        </li>
-                        <li class="dropdown wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی</a>
-                            <div class="dropdown-menu custom_block">
-                                <ul>
-                                    <li>
-                                        <table>
-                                            <tbody>
-                                            <tr>
-                                                <td><img alt="" src="/image/banner/cms-block.jpg"></td>
-                                                <td><img alt="" src="/image/banner/responsive.jpg"></td>
-                                                <td><img alt="" src="/image/banner/cms-block.jpg"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><h4>بلاک های محتوا</h4></td>
-                                                <td><h4>قالب واکنش گرا</h4></td>
-                                                <td><h4>پشتیبانی ویژه</h4></td>
-                                            </tr>
-                                            <tr>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                <td><strong><a class="btn btn-primary btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown information-link"><a>برگه ها</a>
-                            <div class="dropdown-menu">
-                                <ul>
-                                    <li><a href="login.html">ورود</a></li>
-                                    <li><a href="register.html">ثبت نام</a></li>
-                                    <li><a href="category.html">دسته بندی (شبکه/لیست)</a></li>
-                                    <li><a href="product.html">محصولات</a></li>
-                                    <li><a href="cart.html">سبد خرید</a></li>
-                                    <li><a href="checkout.html">تسویه حساب</a></li>
-                                    <li><a href="compare.html">مقایسه</a></li>
-                                    <li><a href="wishlist.html">لیست آرزو</a></li>
-                                    <li><a href="search.html">جستجو</a></li>
-                                </ul>
-                                <ul>
-                                    <li><a href="about-us.html">درباره ما</a></li>
-                                    <li><a href="404.html">404</a></li>
-                                    <li><a href="elements.html">عناصر</a></li>
-                                    <li><a href="faq.html">سوالات متداول</a></li>
-                                    <li><a href="sitemap.html">نقشه سایت</a></li>
-                                    <li><a href="contact-us.html">تماس با ما</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="custom-link-right"><a href="#" target="_blank"> همین حالا بخرید!</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-
         <!-- Main آقایانu End-->
     </div>
-    @yield('content')
-    <!-- Feature Box Start-->
-    <div class="container">
-        <div class="custom-feature-box row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_1">
-                    <div class="title">ارسال رایگان</div>
-                    <p>برای خرید های بیش از 100 هزار تومان</p>
+    <div class="container center-block" style="margin-top: 3%;">
+        <div class="custom-feature-box row" style="background-color: #0f4c75;border-radius:5px;">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="feature-box fbox_1" style="margin-top: 5%;background-color: #0f4c75;">
+                    <div class="title"><i class="fa fa-truck"></i>ارسال رایگان<i class="fa fa-truck"></i></div>
+                    <p>برای خزید های بالای 150 هزار</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_2">
-                    <div class="title">پس فرستادن رایگان</div>
-                    <p>بازگشت کالا تا 24 ساعت پس از خرید</p>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="feature-box fbox_2"style="margin-top: 5%;background-color: #0f4c75;">
+                    <div class="title">قبول مرجوع دادن کالا<i class="f"></i></div>
+                    <p>بازگشت کالا تا 7 روز بعد از دریافت سفارش</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_3">
-                    <div class="title">کارت هدیه</div>
-                    <p>بهترین هدیه برای عزیزان شما</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_4">
-                    <div class="title">امتیازات خرید</div>
-                    <p>از هر خرید امتیاز کسب کرده و از آن بهره بگیرید</p>
+            <div class="col-md-4 col-sm-6 col-xs-12" >
+                <div class="feature-box fbox_3"style="margin-top: 5%; background-color: #0f4c75;">
+                    <div class="title"><i class="fa fa-money"></i>کارت هدیه<i class="fa fa-money"></i></div>
+                    <p>با خرید کارت تخفیف آن را به عزیزانتان هدیه دهید</p>
                 </div>
             </div>
         </div>
     </div>
+    @yield('content')
+    <!-- Feature Box Start-->
     <!-- Feature Box End-->
     <!--Footer Start-->
     <footer id="footer">
@@ -458,39 +202,23 @@
                         <p>قالب HTML فروشگاهی مارکت شاپ. این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</p>
                     </div>
                     <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                        <h5>اطلاعات</h5>
-                        <ul>
-                            <li><a href="about-us.html">درباره ما</a></li>
-                            <li><a href="about-us.html">اطلاعات 0 تومان</a></li>
-                            <li><a href="about-us.html">حریم خصوصی</a></li>
-                            <li><a href="about-us.html">شرایط و قوانین</a></li>
-                        </ul>
-                    </div>
-                    <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                        <h5>خدمات مشتریان</h5>
-                        <ul>
-                            <li><a href="contact-us.html">تماس با ما</a></li>
-                            <li><a href="#">بازگشت</a></li>
-                            <li><a href="sitemap.html">نقشه سایت</a></li>
-                        </ul>
-                    </div>
-                    <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                        <h5>امکانات جانبی</h5>
-                        <ul>
-                            <li><a href="#">برند ها</a></li>
-                            <li><a href="#">کارت هدیه</a></li>
-                            <li><a href="#">بازاریابی</a></li>
-                            <li><a href="#">ویژه ها</a></li>
-                        </ul>
-                    </div>
-                    <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         <h5>حساب من</h5>
-                        <ul>
-                            <li><a href="#">حساب کاربری</a></li>
-                            <li><a href="#">تاریخچه سفارشات</a></li>
-                            <li><a href="#">لیست علاقه مندی</a></li>
-                            <li><a href="#">خبرنامه</a></li>
-                        </ul>
+                        @if(Auth::check())
+                            <ul>
+                                <li><a href="{{route('user.profile')}}">حساب کاربری</a></li>
+                                <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
+                                <li><a href="#">لیست علاقه مندی</a></li>
+                                <li><a href="contact-us.html">تماس با ما</a></li>
+
+                            </ul>
+                        @else
+                            <ul>
+                                <li><a href="{{route('login')}}">ورود به حساب کاربری</a></li>
+                                <li><a href="{{route('register')}}">ساخت حساب جدید</a></li>
+                                <li><a href="contact-us.html">تماس با ما</a></li>
+
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -499,53 +227,27 @@
             <div class="container">
                 <div id="powered" class="clearfix">
                     <div class="powered_text pull-left flip">
-                        <p>کپی رایت © 2016 فروشگاه شما | پارسی سازی و ویرایش توسط <a href="https://www.roxo.ir" target="_blank">روکسو</a></p>
+                        <p>حق کپی رایت برای فروشگاه ساکا مارکت محفوظ است<i class="fa fa-copyright"></i></p>
                     </div>
                     <div class="social pull-right flip">
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/socialicons/facebook.png" alt="Facebook" title="Facebook">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/socialicons/twitter.png" alt="Twitter" title="Twitter">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/socialicons/google_plus.png" alt="Google+" title="Google+">
-                        </a> <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/socialicons/pinterest.png" alt="Pinterest" title="Pinterest">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/socialicons/rss.png" alt="RSS" title="RSS">
-                        </a>
+                        <a href="#" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-whatsapp fa-2x"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
                     </div>
                 </div>
                 <div class="bottom-row">
-                    <div class="custom-text text-center">
-                        <p>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.<br> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                    </div>
                     <div class="payments_types">
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_paypal.png" alt="paypal" title="PayPal">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_american.png" alt="american-express" title="American Express">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_2checkout.png" alt="2checkout" title="2checkout">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_maestro.png" alt="maestro" title="Maestro">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_discover.png" alt="discover" title="Discover">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img data-toggle="tooltip" src="/image/payment/payment_mastercard.png" alt="mastercard" title="MasterCard">
-                        </a>
+                        <a href="#" ><i class="fa fa-cc-mastercard fa-2x"></i></a>
+                        <a href="#" ><i class="fa fa-paypal fa-2x"></i></a>
+                        <a href="#" ><i class="fa fa-cc-discover fa-2x"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="back-top"><a data-toggle="tooltip" title="بازگشت به بالا" href="javascript:void(0)" class="backtotop"><i class="fa fa-chevron-up"></i></a></div>
+        <div id="back-top">
+            <a data-toggle="tooltip" title="بازگشت به بالا" href="javascript:void(0)" class="backtotop"><i class="fa fa-chevron-up"></i></a>
+        </div>
     </footer>
     <!--Footer End-->
 

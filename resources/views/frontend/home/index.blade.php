@@ -13,7 +13,7 @@
                 <!--Middle Part Start-->
                 <div id="content" class="col-xs-12">
                     <!-- Slideshow Start-->
-                    <div class="slideshow single-slider owl-carousel">
+                    <div class="slideshow single-slider owl-carousel" >
                         @foreach($slides as $slide)
                             @foreach($slide->photos as $photo)
                             <div class="item"> <a href="#"><img class="img-responsive" src="{{$photo->path}}" alt="banner 2" /></a> </div>
@@ -23,10 +23,10 @@
                     <!-- Slideshow End-->
                     <!-- محصولات Tab Start -->
                     <div id="product-tab" class="product-tab">
-                        <ul id="tabs" class="tabs">
-                            <li><a href="#tab-latest">جدیدترین</a></li>
-                            <li><a href="#tab-featured">ویژه</a></li>
-                            <li><a href="#tab-bestseller">پرفروش</a></li>
+                        <ul id="tabs" class="tabs"style="border-color: #f8b400;">
+                            <li><a href="#tab-latest"style="border-color: #f8b400;">جدیدترین</a></li>
+                            <li><a href="#tab-featured"style="border-color: #f8b400;">ویژه</a></li>
+                            <li><a href="#tab-bestseller"style="border-color: #f8b400;">پرفروش</a></li>
                         </ul>
                         <div id="tab-latest" class="tab_content">
                             <div class="owl-carousel product_carousel_tab">
@@ -77,23 +77,8 @@
                                 @endforeach
                             </div>
                         </div>
-
                         <div id="tab-bestseller" class="tab_content">
                             <div class="owl-carousel product_carousel_tab">
-                                <div class="product-thumb">
-                                    <div class="image"><a href="product.html"><img src="image/product/FinePix-Long-Zoom-Camera-220x330.jpg" alt="دوربین فاین پیکس" title="دوربین فاین پیکس" class="img-responsive" /></a></div>
-                                    <div class="caption">
-                                        <h4><a href="product.html">دوربین فاین پیکس</a></h4>
-                                        <p class="price"> 122000 تومان </p>
-                                    </div>
-                                    <div class="button-group">
-                                        <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                                        <div class="add-to-links">
-                                            <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                                            <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="product-thumb">
                                     <div class="image"><a href="product.html"><img src="image/product/nikon_d300_1-220x330.jpg" alt="دوربین دیجیتال حرفه ای" title="دوربین دیجیتال حرفه ای" class="img-responsive" /></a></div>
                                     <div class="caption">
@@ -111,14 +96,6 @@
                             </div>
                         </div>
                     </div>    <!-- محصولات Tab Start -->
-                    <!-- Banner Start -->
-                    <div class="marketshop-banner">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><a href="#"><img src="image/banner/sample-banner-4-600x250.jpg" alt="2 Block Banner" title="2 Block Banner" /></a></div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><a href="#"><img src="image/banner/sample-banner-5-600x250.jpg" alt="2 Block Banner 1" title="2 Block Banner 1" /></a></div>
-                        </div>
-                    </div>
-                    <!-- Banner End -->
                     <!-- دسته ها محصولات Slider Start-->
                     <div class="category-module" id="latest_category">
                         <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="category.tpl">نمایش همه</a></h3>
@@ -440,15 +417,10 @@
 
                     <!-- برند Logo Carousel Start-->
                     <div id="carousel" class="owl-carousel nxt">
-                        <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="پالم" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="سونی" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="کنون" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="اپل" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="اچ تی سی" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="اچ پی" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="brand" class="img-responsive" /></a> </div>
-                        <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="brand1" class="img-responsive" /></a> </div>
-                    </div>
+                        @foreach($brands as $brand)
+                            <div class="item image"> <a href="{{route('category.single',['id'=>$brand->id])}}"><img class="img-responsive"  src="{{$brand->photo->path}}"/></a> </div>
+                        @endforeach
+                         </div>
                     <!-- برند Logo Carousel End -->
                 </div>
                 <!--Middle Part End-->

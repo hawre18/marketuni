@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Brand;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Province;
@@ -21,7 +22,8 @@ class HomeController extends Controller
         $slides=Slide::with('photos')->get();
         $latestProduct=Product::orderby('created_at','desc')->limit(10)->get();
         $featuredProduct=Product::WhereNotNull('discount_price')->limit(10)->get();
-        return view('frontend.home.index',compact(['latestProduct','slides','featuredProduct']));
+        $brands=Brand::with('photo')->get();
+        return view('frontend.home.index',compact(['latestProduct','slides','featuredProduct','brands']));
     }
     public function profile()
     {

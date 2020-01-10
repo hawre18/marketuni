@@ -71,6 +71,7 @@ Route::get('/user-acc','Auth\RegisterController@acc')->name('user.acc');
 Route::post('/remove-to-cart/{id}','Frontend\CartController@removeItem')->name('cart.remove');
 Route::get('/cart','Frontend\CartController@getCart')->name('cart.get');
 Route::get('product/single/{id}','Frontend\ProductController@getProduct')->name('products.single');
+Route::get('category/single/{id}','Frontend\ProductController@categoryProduct')->name('category.single');
 Route::get('category/{id}','Frontend\ProductController@getProductByCategory')->name('category.index');
 
 
