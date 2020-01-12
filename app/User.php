@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Nagy\LaravelRating\Traits\Rate\CanRate;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use CanRate;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +58,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
     public function comments()
     {

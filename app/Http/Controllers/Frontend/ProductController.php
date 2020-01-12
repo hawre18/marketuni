@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use App\AttributeGroup;
 use App\Category;
 use App\Comment;
+use App\Favorite;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Rating;
 use Illuminate\Http\Request;
+use App\Http\Resources\Rating as RatingResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -80,4 +84,37 @@ class ProductController extends Controller
         return response()->json($response,200);
 
     }
+
+    public function setRating(Request $request)
+    {
+        return new RatingResource(Rating::create([
+            'product_id'=>$request->get('product'),
+            'user_id'=>$request->get('user'),
+            'rating'=>$request->get('rating')
+        ]));
+    }
+
+    public function getRating($id)
+    {
+        return RatingResource::collection(Rating::all()->where('product_id',$id));
+    }
+    public function favoriteProduct(Product $product)
+    {
+        $user=Auth::user()->id;
+        $isFavorited=Favorite::whereProduct_id($product->id)->where('user_id',$user)->get();
+        if (!count($isFavorited)>0){
+        $favorite=new Favorite();
+        $favorite->user_id=$user;
+        $favorite->product_id=$product->id;
+        $favorite->save();
+        return back();
+        }
+    }
+
+    /**
+     * Unfavorite a particular post
+     *
+     * @param  Post $post
+     * @return Response
+     */
 }

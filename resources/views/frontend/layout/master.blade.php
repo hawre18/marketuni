@@ -71,7 +71,7 @@
                     </div>
                     <!-- Logo End -->
                     <!-- Mini Cart Start-->
-                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12" style="padding-top:2%;">
                         <div id="cart">
                             <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
@@ -171,19 +171,19 @@
         <div class="custom-feature-box row" style="background-color: #0f4c75;border-radius:5px;">
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="feature-box fbox_1" style="margin-top: 5%;background-color: #0f4c75;">
-                    <div class="title"><i class="fa fa-truck"></i>ارسال رایگان<i class="fa fa-truck"></i></div>
-                    <p>برای خزید های بالای 150 هزار</p>
+                    <div class="title"><i class="fa fa-truck fa-2x"></i></div>
+                    <p>ارسال رایگان برای خریدهای بالای 150 هزار</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="feature-box fbox_2"style="margin-top: 5%;background-color: #0f4c75;">
-                    <div class="title">قبول مرجوع دادن کالا<i class="f"></i></div>
+                    <div class="title"><i class="fa fa-history fa-2x"></i></div>
                     <p>بازگشت کالا تا 7 روز بعد از دریافت سفارش</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12" >
                 <div class="feature-box fbox_3"style="margin-top: 5%; background-color: #0f4c75;">
-                    <div class="title"><i class="fa fa-money"></i>کارت هدیه<i class="fa fa-money"></i></div>
+                    <div class="title"><i class="fa fa-money fa-2x"></i></div>
                     <p>با خرید کارت تخفیف آن را به عزیزانتان هدیه دهید</p>
                 </div>
             </div>
@@ -250,7 +250,6 @@
         </div>
     </footer>
     <!--Footer End-->
-
 </div>
 @yield('script-vuejs')
 <!-- JS Part Start-->
@@ -263,6 +262,9 @@
 <script type="text/javascript" src="/js/swipebox/lib/ios-orientationchange-fix.js"></script>
 <script type="text/javascript" src="/js/swipebox/src/js/jquery.swipebox.min.js"></script>
 <script type="text/javascript" src="/js/custom.js"></script>
+<script src="https://unpkg.com/vue@2.6.0/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-swal"></script>
+<script type="text/javascript" src="/js/star-rating.min.js"></script>
 @yield('script')
 <!-- JS Part End-->
 </body>

@@ -26,6 +26,10 @@ Route::prefix('api')->group(function () {
     Route::get('/sort-products/{id}/{sort}/{paginate}','Frontend\ProductController@apiGetSortedProduct');
     Route::get('/category-attribute/{id}','Frontend\ProductController@apiGetCategoryAttributes');
     Route::get('/filter-products/{id}/{sort}/{paginate}/{attributes}','Frontend\ProductController@apiGetFilterProducts');
+    Route::post('/rating/new','Frontend\ProductController@setRating');
+    Route::get('/rating/{id}','Frontend\ProductController@getRating');
+    Route::post('favorite/{product}/add', 'Frontend\ProductController@favoriteProduct')->name('favorite.add');
+    Route::post('unfavorite/{product}', 'Frontend\ProductController@unFavoriteProduct');
 });
 Route::prefix('admins')->group(function (){
    Route::get('/','Backend\MainController@mainpage');
@@ -73,7 +77,6 @@ Route::get('/cart','Frontend\CartController@getCart')->name('cart.get');
 Route::get('product/single/{id}','Frontend\ProductController@getProduct')->name('products.single');
 Route::get('category/single/{id}','Frontend\ProductController@categoryProduct')->name('category.single');
 Route::get('category/{id}','Frontend\ProductController@getProductByCategory')->name('category.index');
-
 
 
 

@@ -13,7 +13,8 @@
         "hekmatinasser/verta": "^1.10",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "nagy/laravel-rating": "^1.3"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

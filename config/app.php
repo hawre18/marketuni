@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Hekmatinasser\Verta\VertaServiceProvider::class,
+        Nagy\LaravelRating\LaravelRatingServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -230,6 +231,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
+        "LaravelRating" => \Nagy\LaravelRating\LaravelRatingFacade::class,
     ],
 
 ];

@@ -5,10 +5,15 @@
  */
 
 import * as vue from "vue";
+import App from './components/App.vue'
+import VueSwal from 'vue-swal'
 
+Vue.use(VueSwal);
 require('./bootstrap');
-var Paginate = require('vuejs-paginate')
 window.Vue = require('vue');
+window.$ = require('jquery');
+var Paginate = require('vuejs-paginate');
+var StarRating=require('vue-star-rating');
 
 
 /**
@@ -25,7 +30,13 @@ window.Vue = require('vue');
 Vue.component('attribute-component', require('./components/AttributeComponent').default);
 Vue.component('select-city-component', require('./components/SelectCityComponent').default);
 Vue.component('product-component', require('./components/ProductComponent').default);
-vue.component('paginate',Paginate)
+Vue.component('rating-component', require('./components/RatingComponent').default);
+Vue.component('favorite-component', require('./components/FavoriteComponent').default);
+Vue.component('star-rating',StarRating);
+Vue.component('paginate',Paginate);
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -33,5 +44,7 @@ vue.component('paginate',Paginate)
  */
 
 const app = new Vue({
+    render: h => h(App),
     el: '#app',
 });
+

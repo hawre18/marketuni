@@ -256,14 +256,14 @@
             <div class="row products-category">
                 <div class="product-layout product-grid col-lg-3 col-md-3 col-sm-4 col-xs-12" v-for="product in products.data">
                     <div class="product-thumb clearfix">
-                        <div class="image"><a :href="'http://shop.test:10/products/' + product.slug"><img :src=" product.photos[0].path" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
+                        <div class="image"><a :href="'http://localhost:8000/products/' + product.slug"><img :src=" product.photos[0].path" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
                         <div class="caption">
-                            <h4><a :href="'http://shop.test:10/products/' + product.slug">{{product.title}}</a></h4>
+                            <h4><a :href="'http://localhost:8000/products/' + product.slug">{{product.title}}</a></h4>
                             <p class="price" v-if="product.discount_price"><span class="price-new">{{product.discount_price}} تومان</span> <span class="price-old">{{product.price}} تومان</span><span class="saving">{{Math.round(Math.abs((product.price-product.discount_price)/product.price * 100))}}%</span></p>
                             <p class="price" v-if="!product.discount_price"> {{product.price}} تومان </p>
                         </div>
                         <div class="button-group">
-                            <a class="btn-primary" :href="'http://shop.test:10/add-to-cart/' + product.id" ><span>افزودن به سبد</span></a>
+                            <a class="btn-primary" :href="'http://localhost:8000/add-to-cart/' + product.id" ><span>افزودن به سبد</span></a>
                         </div>
                     </div>
                 </div>

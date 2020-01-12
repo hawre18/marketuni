@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Nagy\LaravelRating\Traits\Rate\Rateable;
 
 class Product extends Model
 {
+    use Rateable;
     public function categories(){
         return $this->belongsToMany(Category::class);
     }
@@ -27,6 +29,10 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
     public function comments()
     {

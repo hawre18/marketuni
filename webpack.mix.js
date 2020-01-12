@@ -12,3 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/admin/js')
+function buildConfig(env) {
+    return require('./build/' + env + '.js');
+}
+
+module.exports = buildConfig;

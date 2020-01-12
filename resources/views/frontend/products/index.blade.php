@@ -1,25 +1,15 @@
 @extends('frontend.layout.master')
 @section('content')
-    <div class="container">
-        <!-- Breadcrumb Start-->
-        <ul class="breadcrumb">
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="index.html" itemprop="url"><span itemprop="title"><i class="fa fa-home"></i></span></a></li>
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="category.html" itemprop="url"><span itemprop="title">الکترونیکی</span></a></li>
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="product.html" itemprop="url"><span itemprop="title">لپ تاپ ایلین ور</span></a></li>
-        </ul>
-        <!-- Breadcrumb End-->
+    <div id="app" class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
-                <div itemscope itemtype="http://schema.org/محصولات">
+                <div itemscope>
                     <h1 class="title" itemprop="name">{{$product->title}}</h1>
                     <div class="row product-info">
                         <div class="col-sm-6">
                             <div class="image">
                                 <img class="img-responsive" itemprop="image" id="zoom_01" src="{{$product->photos[0]->path}}" data-zoom-image="{{$product->photos[0]->path}}" />
-                            </div>
-                            <div class="center-block text-center">
-                                <span class="zoom-gallery"><i class="fa fa-search"></i> برای مشاهده گالری روی تصویر کلیک کنید</span>
                             </div>
                             <div class="image-additional" id="gallery_01">
                                 @foreach($product->photos as $photo)
@@ -31,23 +21,18 @@
                             <ul class="list-unstyled description">
                                 <li><b>برند :</b> <a href="#"><span itemprop="brand">{{$product->brand->title}}</span></a></li>
                                 <li><b>کد محصول :</b> <span itemprop="mpn">{{$product->slug}}</span></li>
+                                @if($product->instock==1)
                                 <li><b>وضعیت موجودی :</b>
-                                    @if($product->status==1)
-                                        <span class="instock">موجود</span>
-                                    @else
-                                        <span class="">ناموجود</span>
-                                    @endif
+                                    <span class="instock">موجود</span>
                                 </li>
                             </ul>
                             <ul class="price-box">
-                                <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                    @if($product->discount_price!=null)
+                                <li class="price" itemprop="offers">
+                                    @if(!$product->discount_price==null)
+                                        <span itemprop="price">{{$product->discount_price}} تومان</span>
                                         <span class="price-old">{{$product->price}} تومان</span>
-                                        <span itemprop="price">{{$product->discount_price}} تومان
-                                            <span itemprop="availability" content="موجود"></span>
-                                        </span>
                                     @else
-                                        <span class="price-old">{{$product->price}} تومان</span>
+                                        <span class="price">{{$product->price}} تومان</span>
                                     @endif
                                 </li>
                             </ul>
@@ -55,34 +40,37 @@
                                 <h3 class="subtitle">انتخاب های در دسترس</h3>
                                 <div class="cart">
                                     <div>
-                                        <div class="qty">
-                                            <label class="control-label" for="input-quantity">تعداد</label>
-                                            <input type="text" name="quantity" value="1" size="2" id="input-quantity" class="form-control" />
-                                            <a class="qtyBtn plus" href="javascript:void(0);">+</a><br />
-                                            <a class="qtyBtn mines" href="javascript:void(0);">-</a>
-                                            <div class="clear"></div>
-                                        </div>
                                         <a href="{{route('cart.add',['id'=>$product->id])}}" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
                                     </div>
-                                    <div>
-                                        <button type="button" class="wishlist" onClick=""><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
-                                        <br />
-                                        <button type="button" class="wishlist" onClick=""><i class="fa fa-exchange"></i> مقایسه این محصول</button>
-                                    </div>
+                                   <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{$product->id}}').submit();">
+                                       <i class="fa fa-heart"></i>
+                                       <form id="favorite-form-{{$product->id}}" method="post"
+                                             action="{{route('favorite.add',$product->id)}}" style="display: none;">
+                                           @csrf
+                                       </form>
+                                   </a>
                                 </div>
                             </div>
-                            <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                <meta itemprop="ratingValue" content="0" />
-                                <p><span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span> <a onClick="$('a[href=\'#tab-review\']').trigger('click'); return false;" href=""><span itemprop="reviewCount">1 بررسی</span></a> / <a onClick="$('a[href=\'#tab-review\']').trigger('click'); return false;" href="">یک بررسی بنویسید</a></p>
+                        @else
+                                <span class="label-danger">ناموجود</span>
+                            @endif
+                            <div id="appo" style="direction: ltr;" class="starratep">
+                                @if(Auth::check())
+                                <span>لطفا به محصول امتیاز دهید</span>
+                                <star-rating :star-size="20" :increment="0.5" v-model="rating"></star-rating>
+                                <button @click="setRating()" class="btn btn-primary">ثبت نظر</button>
+                                @endif
+                                <br/>
+                                <span>امتیاز محصول به انتخاب کاربران</span>
+                                <br/>
+                                <star-rating :inline="true" :read-only="true" :show-rating="false" :star-size="20" v-model="totalRating" :increment="0.1" active-color="#000000"></star-rating>
                             </div>
                         </div>
                     </div>
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab-description" data-toggle="tab">توضیحات اصلی</a></li>
                         <li><a href="#tab-specification" data-toggle="tab">مشخصات</a></li>
-                        @if(Auth::check())
-                        <li><a href="#tab-review" data-toggle="tab">نظرات{{count($commentsProduct)}}</a></li>
-                        @endif
+                        <li><a href="#tab-review" data-toggle="tab"><span>نظرات</span>({{count($commentsProduct)}})</a></li>
                     </ul>
                     <div class="tab-content">
                         <div itemprop="description" id="tab-description" class="tab-pane active">
@@ -103,6 +91,7 @@
                             </div>
                         </div>
                         <div id="tab-review" class="tab-pane">
+                            @if(Auth::check())
                             <form class="form-horizontal" method="post" action="\comment\store\{{$product->id}}\{{$user_id=Auth::user()->id}}">
                                 @csrf
                                 <div id="review">
@@ -136,6 +125,30 @@
                                     </div>
                                 </div>
                             </form>
+                            @else
+                                    <div id="review">
+                                        <div>
+                                            <table class="table table-striped table-bordered">
+                                                <tbody>
+                                                @foreach($commentsProduct as $comments)
+                                                    <th>{{$comments->user->name.' '.$comments->user->last_name}}<strong class="pull-left">{{\Hekmatinasser\Verta\Verta::instance($comments->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</strong></th>
+                                                    <tr>
+                                                        <td>
+                                                            {{$comments->description}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-right"></div>
+                                    </div>
+                                    <div class="text" style="padding-bottom: 5%;">
+                                        <div class="col-sm-12 col-md-6">
+                                            <span>برای ثبت نظر<a href="{{route('register')}}">ثبت نام</a> کنید</span><span>/</span><span><a href="{{route('login')}}">واردشوید</a></span>
+                                        </div>
+                                    </div>
+                                @endif
                         </div>
                     </div>
                     <h3 class="subtitle">محصولات مرتبط</h3>
@@ -268,6 +281,86 @@
             var ez =   $('#zoom_01').data('elevateZoom');
             $.swipebox(ez.getGalleryList());
             return false;
+        });
+    </script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#appo',
+            components:{
+                'star-rating': VueStarRating.default
+            },
+            methods: {
+                setRating(){
+                    var pathArray=location.pathname.split('/');
+                    var uid=pathArray[3];
+                    const request = new Request('/api/rating/new', {
+                        method: 'POST',
+                        body:JSON.stringify({product:uid,user:'1',rating:this.rating}),
+                        headers: new Headers({
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'Content-Type': 'application/json'
+                        })
+                    });
+                    fetch(request)
+
+                    .then(res=>res.json())
+                    .then(data=>{
+                        this.$swal('سپاس','امتیاز شما ثبت شد','success')
+                    }).catch(err=>{
+                        this.$swal('متاسفم','انگار مشکلی پیش آمده است','warning')
+                        console.log(err);
+                    });
+                },
+               getRating() {
+                    var pathArray=location.pathname.split('/');
+                    var pid=pathArray[3];
+                   const request = new Request('/api/rating/'+pid, {
+                       method: 'get',
+                       headers: new Headers({
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                           'Content-Type': 'application/json'
+                       })
+                   });
+                    fetch(request)
+                        .then(res=>res.json())
+                        .then(res=>{
+                           var mydata=res.data;
+                           console.log(mydata.length);
+                           var totaluser=mydata.length;
+                           var sum=0;
+                           for (var i=0;i<mydata.length;i++){
+                               sum+=parseFloat(mydata[i]['rating']);
+                           }
+                           var avg=sum/mydata.length;
+                           this.totalRating=parseFloat(avg.toFixed(1));
+                        }).catch(err=>{
+                        console.log(err);
+                    });
+                },
+                setCurrentSelectedRating: function(rating) {
+                    this.currentSelectedRating = "You have Selected: " + rating + " stars";
+                },
+                reset: function() {
+                    this.resetableRating = 0;
+                },
+                syncRating: function(rating) {
+                    this.resetableRating = rating;
+                }
+            },
+            data: {
+                boundRating: 2,
+                rating:0,
+                totalRating:0,
+                totalUser:0,
+                currentRating: "No Rating",
+                currentSelectedRating: "No Current Rating",
+                resetableRating: 3,
+                isFavorited: '',
+                favorites:0,
+            },
+            created(){
+                this.getRating();
+            }
         });
     </script>
 @endsection

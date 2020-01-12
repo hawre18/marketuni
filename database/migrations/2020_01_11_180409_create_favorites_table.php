@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateFavoritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('amount');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('favorites');
     }
 }
