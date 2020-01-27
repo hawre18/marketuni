@@ -6,9 +6,9 @@
 
 import * as vue from "vue";
 import App from './components/App.vue'
-import VueSwal from 'vue-swal'
+import vueSwal from 'vue-swal'
 
-Vue.use(VueSwal);
+vue.use(vueSwal);
 require('./bootstrap');
 window.Vue = require('vue');
 window.$ = require('jquery');
@@ -27,13 +27,12 @@ var StarRating=require('vue-star-rating');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('attribute-component', require('./components/AttributeComponent').default);
-Vue.component('select-city-component', require('./components/SelectCityComponent').default);
-Vue.component('product-component', require('./components/ProductComponent').default);
-Vue.component('rating-component', require('./components/RatingComponent').default);
-Vue.component('favorite-component', require('./components/FavoriteComponent').default);
-Vue.component('star-rating',StarRating);
-Vue.component('paginate',Paginate);
+Vue.component('attribute-component', require('./components/AttributeComponent').default)
+Vue.component('select-city-component', require('./components/SelectCityComponent').default)
+Vue.component('product-component', require('./components/ProductComponent').default)
+Vue.component('rating-component', require('./components/RatingComponent').default)
+Vue.component('star-rating',StarRating)
+Vue.component('paginate',Paginate)
 
 
 
@@ -44,7 +43,6 @@ Vue.component('paginate',Paginate);
  */
 
 const app = new Vue({
-    render: h => h(App),
     el: '#app',
 });
 

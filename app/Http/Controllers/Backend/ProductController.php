@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -55,6 +56,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'sku' => 'required|unique:products|numeric',
+            'slug' => 'required|min:3|max:255',
+            'status' => 'required|numeric',
+            'price' => 'required|numeric',
+            'discount_price' => 'nullable',
+            'short_description' => 'required|min:3|max:255',
+            'long_description' => 'required|min:3',
+            'brand' => 'required',
+        ]);
+
+        try{
         $newProduct=new Product();
         $newProduct->title=$request->title;
         $newProduct->sku=$this->generateSKU();
@@ -72,7 +86,13 @@ class ProductController extends Controller
         $newProduct->photos()->sync($photos);
         $newProduct->categories()->sync($request->categories);
         $newProduct->attributeValues()->sync($attributes);
-        return redirect('admins\products');
+            Session::flash('product_success','محصول با موفقیت ثبت شد');
+            return redirect('/admins/products');
+        }
+        catch (\Exception $m){
+            Session::flash('product_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/products');
+        }
     }
 
     /**
@@ -83,7 +103,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product=Product::with('user','brand','photos')->whereId($id)->first();
+        return view('admin.products.show',compact(['product']));
     }
 
     /**
@@ -108,6 +129,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'sku' => 'required|unique:products,sku,'. $id. '|numeric',
+            'slug' => 'required|min:3|max:255',
+            'status' => 'required|numeric',
+            'price' => 'required|numeric',
+            'discount_price' => 'nullable',
+            'short_description' => 'required|min:3|max:255',
+            'long_description' => 'required|min:3',
+            'brand' => 'required',
+        ]);
+
+        try{
         $product=Product::findorfail($id);
         $product->title=$request->title;
         $product->sku=$this->generateSKU();
@@ -128,13 +162,26 @@ class ProductController extends Controller
         $product->photos()->sync($photos);
         $product->categories()->sync($request->categories);
         $product->attributeValues()->sync($attributes);
-        return redirect('admins\products');
+        Session::flash('product_success','محصول با موفقیت ویرایش شد');
+        return redirect('/admins/products');
+    }
+    catch (\Exception $m){
+    Session::flash('product_error','خطایی در ویرایش به وجود آمده لطفا مجددا تلاش کنید');
+    return redirect('/admins/products');
+    }
     }
     public function delete($id)
     {
+        try{
         $product=Product::findorfail($id);
         $product->delete();
-        return redirect('admins\products');
+        Session::flash('product_success','محصول با موفقیت حذف شد');
+        return redirect('/admins/products');
+    }
+    catch (\Exception $m){
+    Session::flash('product_error','خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
+    return redirect('/admins/products');
+    }
     }
     /**
      * Remove the specified resource from storage.

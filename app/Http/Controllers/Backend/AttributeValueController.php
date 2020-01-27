@@ -40,12 +40,22 @@ class AttributeValueController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'attributeGroup_id' => 'required',
+        ]);
+        try{
         $attributevalue=new AttributeValue();
         $attributevalue->title=$request->input('title');
         $attributevalue->attributeGroup_id=$request->input('attribute_group');
         $attributevalue->save();
         Session::flash('attribute-value','مقدار ویژگی با موفقیت ثبت شد');
         return redirect('/admins/attributes-value');
+        }
+        catch (\Exception $m){
+            Session::flash('attribute_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/attributes-value');
+        }
     }
 
     /**
@@ -81,22 +91,38 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'attributeGroup_id' => 'required',
+        ]);
+        try{
         $attributevalue=AttributeValue::findorfail($id);
         $attributevalue->title=$request->input('title');
         $attributevalue->attributeGroup_id=$request->input('attribute_group');
         $attributevalue->save();
-        Session::flash('attribute-value','مقدار ویژگی با موفقیت بروز شد');
+        Session::flash('attribute-value_success','مقدار ویژگی با موفقیت بروز شد');
         return redirect('/admins/attributes-value');
+        }
+        catch (\Exception $m){
+            Session::flash('attribute-value_error','خطایی در ,یرایش به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/attributes-value');
+        }
     }
 
     public function delete($id)
     {
+        try{
         $attributevalue=AttributeValue::findorfail($id);
         $attributevalue->delete();
-        Session::flash('attribute-value','مقدار ویژگی با موفقیت حذف شد');
-        return redirect('/admins/attributes-value');
-
+        Session::flash('attribute-value_success','مقدار ویژگی با موفقیت حذف شد');
+        return redirect('/admins/attributes-value');}
+        catch (\Exception $m) {
+            Session::flash('attribute-value_error', 'خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/attributes-value');
+        }
     }
+
+
     /**
      * Remove the specified resource from storage.
      *

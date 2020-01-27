@@ -13,9 +13,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                @if(Session::has('slides'))
+                @if(Session::has('slide_success'))
+                    <div class="alert alert-success">
+                        <div>{{Session('slide_success')}}</div>
+                    </div>
+                @elseif(Session::has('slide_error'))
                     <div class="alert alert-danger">
-                        <div>{{Session('slides')}}</div>
+                        <div>{{Session('slide_error')}}</div>
                     </div>
                 @endif
                 <div class="table-responsive">
@@ -32,7 +36,7 @@
                             <tbody>
                             @foreach($slides as $slide)
                                 <tr>
-                                    <td width="20%" class="text-center">{{$slide->id}}</td>
+                                    <td width="20%" class="text-center">{{ $loop->index + 1 }}</td>
                                     <td width="20%" class="text-center">{{$slide->title}}</td>
                                     @if($slide->status==0)
                                         <td width="20%" class="text-center">منتشر نشده</td>

@@ -10,6 +10,15 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form method="post" action="\admins\attributes-value">
                             @csrf
                             <div class="form-group">
@@ -17,13 +26,13 @@
                                 <select name="attribute_group" class="form-control">
                                     <option value="">انتخاب کنید</option>
                                     @foreach($attributesGroup as $attributeGroup)
-                                        <option value="{{$attributeGroup->id}}">{{$attributeGroup->title}}</option>
+                                        <option value="{{$attributeGroup->id}}" @if($attributeGroup->id == old('$attribute_group')) selected @endif>{{$attributeGroup->title}}</option>
                                         @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="title">عنوان</label>
-                                <input type="text" name="title" class="form-control" placeholder="مقدار ویژگی ها">
+                                <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="مقدار ویژگی ها">
                             </div>
                             <button type="submit" class="btn btn-success pull-left">ذخیره</button>
                         </form>

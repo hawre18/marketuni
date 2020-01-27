@@ -38,12 +38,20 @@ class AttributeGroupController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:attributesgroup|max:255',
+        ]);
+        try{
         $attribute=new AttributeGroup();
         $attribute->title=$request->input('title');
         $attribute->type=$request->input('type');
         $attribute->save();
-        Session::flash('attribute','ویژگی با موفقیت ثبت شد');
-        return redirect('/admins/attributes');
+        Session::flash('attribute_success','ویژگی با موفقیت ثبت شد');
+        return redirect('/admins/attributes');}
+        catch (\Exception $m){
+            Session::flash('attribute_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/attributes');
+        }
     }
 
     /**
@@ -78,19 +86,33 @@ class AttributeGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $attribute=AttributeGroup::findorfail($id);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:attributesgroup,title,' . $id .'|max:255',
+        ]);
+        try
+        {
+            $attribute=AttributeGroup::findorfail($id);
         $attribute->title=$request->input('title');
         $attribute->type=$request->input('type');
         $attribute->save();
         Session::flash('attribute','ویژگی '.$attribute->title.' با موفقیت بروزرسانی شد');
-        return redirect('/admins/attributes');
+        return redirect('/admins/attributes');}
+        catch (\Exception $m){
+            Session::flash('attribute_error','خطایی در بروز رسانی وجود دارد لطفا مجددا تلاش کنید');
+            return redirect('/admins/attributes');
+        }
     }
     public function delete($id)
     {
+        try{
         $attribute=AttributeGroup::findorfail($id);
         $attribute->delete();
         Session::flash('attribute','ویژگی با موفقیت حذف شد');
-        return redirect('/admins/attributes');
+        return redirect('/admins/attributes');}
+        catch (\Exception $m){
+            Session::flash('attribute_error','حذف صورت نگرفت');
+            return redirect('/admins/attributes');
+        }
 
     }
     /**

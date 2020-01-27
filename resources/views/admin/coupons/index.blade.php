@@ -13,35 +13,39 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                @if(Session::has('coupons'))
-                    <div class="alert alert-danger">
-                        <div>{{Session('coupons')}}</div>
+                @if(Session::has('coupon_success'))
+                    <div class="alert alert-success">
+                        <div>{{Session('coupon_success')}}</div>
                     </div>
-                @endif
+                    @elseif(Session::has('coupon_error'))
+                        <div class="alert alert-danger">
+                            <div>{{Session('coupon_error')}}</div>
+                        </div>
+                    @endif
                 <div class="table-responsive">
                         <table class="table no-margin">
                             <thead>
                             <tr>
                                 <th class="text-center">شناسه</th>
-                                <th >عنوان تخفیف</th>
-                                <th >کد تخفیف</th>
-                                <th >مقدار تخفیف</th>
-                                <th >وضعیت</th>
+                                <th class="text-center">عنوان تخفیف</th>
+                                <th class="text-center">کد تخفیف</th>
+                                <th class="text-center">مقدار تخفیف</th>
+                                <th class="text-center">وضعیت</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($coupons as $coupon)
                                 <tr>
-                                    <td class="text-center">{{$coupon->id}}</td>
+                                    <td class="text-center">{{ $loop->index + 1 }}</td>
                                     <td class="text-center">{{$coupon->title}}</td>
                                     <td class="text-center">{{$coupon->code}}</td>
                                     <td class="text-center">{{$coupon->price}}</td>
-                                    @if($coupon->status==0){
+                                    @if($coupon->status==0)
                                         <td class="text-center">غیر فعال</td>
-                                    }@else{
+                                    @else
                                         <td class="text-center">فعال</td>
-                                    }
+                                @endif
                                     <td class="text-center">
                                         <a class="btn btn-warning" href="{{route('coupons.edit',$coupon->id)}}">ویرایش</a>
                                         <a class="btn btn-danger" href="{{route('coupons.delete',$coupon->id)}}">حذف</a>

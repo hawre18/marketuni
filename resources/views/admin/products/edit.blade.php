@@ -6,10 +6,19 @@
     <section id="app" class="content" style="direction: rtl">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">ایجاد برند جدید</h3>
+                <h3 class="box-title pull-right">ویرایش محصول</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form method="post" action="\admins\products\{{$product->id}}">

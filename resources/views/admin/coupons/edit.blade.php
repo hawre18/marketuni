@@ -3,10 +3,19 @@
     <section class="content" style="direction: rtl">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">ویرایش برند</h3>
+                <h3 class="box-title pull-right">ویرایش کوپن</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form method="post" action="\admins\coupons\{{$coupon->id}}">
@@ -22,11 +31,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">مقدار تخفیف</label>
-                                <input type="number" name="price" class="form-control" placeholder="مقدار تخفیف" value="{{$coupon->code}}">
+                                <input type="number" name="price" class="form-control" placeholder="مقدار تخفیف" value="{{$coupon->price}}">
                             </div>
                             <div class="form-group required">
                                 <label for="input-gender" class="col-sm-2 control-label">وضعیت</label>
-                                    <input type="radio" name="status" value="1" @if($coupon->status==1) checked @endif><span>منتشر شده</span>}</br>
+                                    <input type="radio" name="status" value="1" @if($coupon->status==1) checked @endif><span>منتشر شده</span>
                                     <input type="radio" name="status" value="0"@if($coupon->status==0) checked @endif><span>منتشر نشده</span>
                             </div>
                             <button type="submit" class="btn btn-success pull-left">ذخیره</button>

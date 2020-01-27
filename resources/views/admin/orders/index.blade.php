@@ -12,8 +12,8 @@
                         <thead>
                         <tr>
                             <th class="text-center">شناسه</th>
-                            <th >مبلغ</th>
-                            <th >وضعیت</th>
+                            <th class="text-center">مبلغ</th>
+                            <th class="text-center">وضعیت</th>
                         </tr>
                         </thead>
                         <tbody>

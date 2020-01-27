@@ -28,8 +28,8 @@
                     </table>
                     <div class="customer-data">
                         <p><strong>نام خریدار: </strong>{{$order->user->name . ' '.$order->user->last_name}}</p>
-                        <p><strong>آدرس خریدار: </strong>{{$order->user->addresses[0]->province->name . ' '.$order->user->addresses[0]->city->name . ' '.$order->user->addresses[0]->address}}</p>
-                        <p><strong>کدپستی خریدار: </strong>{{$order->user->addresses[0]->post_code}}</p>
+                        <p><strong>آدرس خریدار: </strong>{{$order->province->name . ' '.$order->city->name . ' '.$order->addresstxt}}</p>
+                        <p><strong>کدپستی خریدار: </strong>{{$order->post_code}}</p>
                         <p><strong>شماره موبایل خریدار: </strong>{{$order->user->phone}}</p>
                     </div>
                 </div>

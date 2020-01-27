@@ -1,12 +1,12 @@
 @extends('frontend.layout.master')
 
 @section('content')
-    <div class="row center-block" id="app">
+    <div class="row center-block">
         <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
             <h1 class="title">ثبت نام حساب کاربری</h1>
             <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="{{route('login')}}">صفحه لاگین</a> مراجعه کنید.</p>
-            <form class="form-horizontal" method="post" action="{{url('user-acc')}}">
+            <form class="form-horizontal" method="post" action="{{ route('register') }}">
                 @csrf
                 <fieldset id="account">
                     <legend>اطلاعات شخصی شما</legend>
@@ -46,28 +46,6 @@
                         </div>
                     </div>
                 </fieldset>
-                <fieldset id="address">
-                    <legend>آدرس</legend>
-                    <div class="form-group">
-                        <label for="input-company" class="col-sm-2 control-label">شرکت</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="input-company" placeholder="شرکت" value="" name="company">
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label for="input-address-1" class="col-sm-2 control-label">آدرس</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="input-address-1" placeholder="آدرس" value="" name="address">
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label for="input-postcode" class="col-sm-2 control-label">کد پستی</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="input-postcode" placeholder="کد پستی" value="" name="post_code">
-                        </div>
-                    </div>
-                    <select-city-component></select-city-component>
-                </fieldset>
                 <fieldset>
                     <legend>رمز عبور شما</legend>
                     <div class="form-group required">
@@ -85,15 +63,13 @@
                 </fieldset>
                 <div class="buttons">
                     <div class="pull-right">
-                        <input type="hidden" name="_method" value="GET" >
-                        <input type="submit" class="btn btn-primary" value="ثبت نام">
+                        <button type="submit" class="btn btn-primary">
+                            ثبت نام
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
         <!--Middle Part End -->
     </div>
-@endsection
-@section('script-vuejs')
-    <script src="{{asset('/admin/js/app.js')}}"></script>
 @endsection

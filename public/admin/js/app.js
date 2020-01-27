@@ -1998,67 +1998,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-new Vue({
-  el: '#appa',
-  components: {
-    'star-rating': VueStarRating["default"]
-  },
-  props: ['product', 'favorited'],
-  data: function data() {
-    return {
-      isFavorited: ''
-    };
-  },
-  mounted: function mounted() {
-    this.isFavorited = this.isFavorite ? true : false;
-  },
-  computed: {
-    isFavorite: function isFavorite() {
-      return this.favorited;
-    }
-  },
-  methods: {
-    favorite: function favorite(product) {
-      var _this = this;
-
-      axios.post('/favorite/' + product).then(function (response) {
-        return _this.isFavorited = true;
-      })["catch"](function (response) {
-        return console.log(response.data);
-      });
-    },
-    unFavorite: function unFavorite(product) {
-      var _this2 = this;
-
-      axios.post('/unfavorite/' + product).then(function (response) {
-        return _this2.isFavorited = false;
-      })["catch"](function (response) {
-        return console.log(response.data);
-      });
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductComponent.vue?vue&type=script&lang=js& ***!
@@ -2068,201 +2007,6 @@ new Vue({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2367,7 +2111,8 @@ __webpack_require__.r(__webpack_exports__);
       attributeGroups: [],
       selectedAttribute: [],
       computedAttribute: [],
-      flag: false
+      flag: false,
+      categories: []
     };
   },
   props: ['category'],
@@ -2379,8 +2124,17 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (err) {
       console.log(err);
     });
+    axios.get('/api/categories').then(function (res) {
+      console.log(res);
+      _this.cat = res.data.categories;
+
+      _this.getAllChildren(res.data.categories, 0);
+    })["catch"](function (err) {
+      console.log(err);
+    });
     axios.get('/api/category-attribute/' + this.category.id).then(function (res) {
       _this.attributeGroups = res.data.attributeGroups;
+      console.log(res);
     })["catch"](function (err) {
       console.log(err);
     });
@@ -2443,6 +2197,19 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    getAllChildren: function getAllChildren(currentValue, level) {
+      for (var i = 0; i < currentValue.length; i++) {
+        var current = currentValue[i];
+        this.categories.push({
+          id: current.id,
+          name: Array(level + 1).join("----") + " " + current.name
+        });
+
+        if (current.children_recursive) {
+          this.getAllChildren(current.children_recursive, level + 1);
+        }
+      }
     }
   }
 });
@@ -39165,58 +38932,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "appa" } }, [
-    _vm.isFavorited
-      ? _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.unFavorite(_vm.product)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-heart" })]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isFavorite
-      ? _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.favorite(_vm.product)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-heart-o" })]
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductComponent.vue?vue&type=template&id=9e91ef8e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductComponent.vue?vue&type=template&id=9e91ef8e& ***!
@@ -39301,19 +39016,22 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _c("h3", { staticClass: "subtitle" }, [_vm._v("دسته ها")]),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c("h3", { staticClass: "subtitle" }, [_vm._v("پرفروش ها")]),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c("h3", { staticClass: "subtitle" }, [_vm._v("ویژه")]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3)
+        _c(
+          "div",
+          { staticClass: "box-category" },
+          _vm._l(_vm.categories, function(category) {
+            return _c("ul", { attrs: { id: "cat_accordion" } }, [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v(_vm._s(category.name))
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "down" })
+              ])
+            ])
+          }),
+          0
+        )
       ]
     ),
     _vm._v(" "),
@@ -39322,9 +39040,9 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "product-filter" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(4),
+          _vm._m(0),
           _vm._v(" "),
-          _vm._m(5),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3 col-sm-2 text-right" }, [
             _c(
@@ -39372,7 +39090,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(6),
+          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-2 text-right" }, [
             _c(
@@ -39558,886 +39276,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-category" }, [
-      _c("ul", { attrs: { id: "cat_accordion" } }, [
-        _c("li", [
-          _c("a", { attrs: { href: "category.html" } }, [
-            _vm._v("مد و زیبایی")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "down" }),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("آقایان")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("بانوان")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("دخترانه")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("پسرانه")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("نوزاد")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("لوازم")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { staticClass: "active", attrs: { href: "category.html" } }, [
-            _vm._v("الکترونیکی")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "down" }),
-          _vm._v(" "),
-          _c("ul", { staticStyle: { display: "block" } }, [
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("لپ تاپ")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("رومیزی")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("دوربین")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("موبایل و تبلت")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("صوتی و تصویری")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته جدید")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("لوازم خانگی")
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "category.html" } }, [_vm._v("کفش")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "down" }),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("آقایان")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("بانوان")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("دخترانه")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("پسرانه")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("نوزاد")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("لوازم")]),
-              _c("span", { staticClass: "down" }),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته های جدید")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "category.html" } }, [
-                    _vm._v("زیردسته ها")
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "category.html" } }, [_vm._v("ساعت")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "down" }),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("ساعت مردانه")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("ساعت زنانه")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("ساعت بچگانه")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("لوازم")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "category.html" } }, [
-            _vm._v("زیبایی و سلامت")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "down" }),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("عطر و ادکلن")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [_vm._v("آرایشی")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("ضد آفتاب")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("مراقبت از پوست")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("مراقبت از چشم")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "category.html" } }, [
-                _vm._v("مراقبت از مو")
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "side-item" }, [
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/apple_cinema_30-50x75.jpg",
-                alt: "تی شرت کتان مردانه",
-                title: "تی شرت کتان مردانه"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("تی شرت کتان مردانه")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("110000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("122000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-10%")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/iphone_1-50x75.jpg",
-                alt: "آیفون 7",
-                title: "آیفون 7"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [_vm._v("آیفون 7")])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [_vm._v(" 2200000 تومان ")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rating" }, [
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/macbook_1-50x75.jpg",
-                alt: "آیدیا پد یوگا",
-                title: "آیدیا پد یوگا"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("آیدیا پد یوگا")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [_vm._v(" 900000 تومان ")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rating" }, [
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/sony_vaio_1-50x75.jpg",
-                alt: "کفش راحتی مردانه",
-                title: "کفش راحتی مردانه"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("کفش راحتی مردانه")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("32000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [
-              _vm._v("12 میلیون تومان")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-25%")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rating" }, [
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/FinePix-Long-Zoom-Camera-50x75.jpg",
-                alt: "دوربین فاین پیکس",
-                title: "دوربین فاین پیکس"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("دوربین فاین پیکس")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [_vm._v("122000 تومان")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "side-item" }, [
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/macbook_pro_1-50x75.jpg",
-                alt: " کتاب آموزش باغبانی ",
-                title: " کتاب آموزش باغبانی "
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("کتاب آموزش باغبانی")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("98000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("120000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-26%")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/samsung_tab_1-50x75.jpg",
-                alt: "تبلت ایسر",
-                title: "تبلت ایسر"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [_vm._v("تبلت ایسر")])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("98000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("240000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-5%")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rating" }, [
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/apple_cinema_30-50x75.jpg",
-                alt: "تی شرت کتان مردانه",
-                title: "تی شرت کتان مردانه"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href:
-                    "http://demo.harnishdesign.net/opencart/marketshop/v1/index.php?route=product/product&product_id=42"
-                }
-              },
-              [_vm._v("تی شرت کتان مردانه")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("110000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("122000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-10%")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/nikon_d300_1-50x75.jpg",
-                alt: "دوربین دیجیتال حرفه ای",
-                title: "دوربین دیجیتال حرفه ای"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("دوربین دیجیتال حرفه ای")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("92000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("98000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-6%")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/nikon_d300_5-50x75.jpg",
-                alt: "محصولات مراقبت از مو",
-                title: "محصولات مراقبت از مو"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("محصولات مراقبت از مو")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [_vm._v("66000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [_vm._v("90000 تومان")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-27%")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rating" }, [
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star fa-stack-2x" }),
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "fa fa-stack" }, [
-              _c("i", { staticClass: "fa fa-star-o fa-stack-2x" })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-thumb clearfix" }, [
-        _c("div", { staticClass: "image" }, [
-          _c("a", { attrs: { href: "product.html" } }, [
-            _c("img", {
-              staticClass: "img-responsive",
-              attrs: {
-                src: "/image/product/macbook_air_1-50x75.jpg",
-                alt: "لپ تاپ ایلین ور",
-                title: "لپ تاپ ایلین ور"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "caption" }, [
-          _c("h4", [
-            _c("a", { attrs: { href: "product.html" } }, [
-              _vm._v("لپ تاپ ایلین ور")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "price" }, [
-            _c("span", { staticClass: "price-new" }, [
-              _vm._v("10 میلیون تومان")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "price-old" }, [
-              _vm._v("12 میلیون تومان")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "saving" }, [_vm._v("-5%")])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "banner owl-carousel" }, [
-      _c("div", { staticClass: "item" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("img", {
-            staticClass: "img-responsive",
-            attrs: {
-              src: "/image/banner/small-banner1-265x350.jpg",
-              alt: "small banner"
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "item" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("img", {
-            staticClass: "img-responsive",
-            attrs: {
-              src: "/image/banner/small-banner-265x350.jpg",
-              alt: "small banner1"
-            }
-          })
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -40660,7 +39498,7 @@ var render = function() {
     {
       class: [
         "vue-star-rating",
-        { "vue-star-rating-ltr": _vm.ltr },
+        { "vue-star-rating-ltr": _vm.rtl },
         { "vue-star-rating-inline": _vm.inline }
       ]
     },
@@ -53660,7 +52498,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Vue.use(vue_swal__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0__["use"](vue_swal__WEBPACK_IMPORTED_MODULE_2___default.a);
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -53685,7 +52523,6 @@ Vue.component('attribute-component', __webpack_require__(/*! ./components/Attrib
 Vue.component('select-city-component', __webpack_require__(/*! ./components/SelectCityComponent */ "./resources/js/components/SelectCityComponent.vue")["default"]);
 Vue.component('product-component', __webpack_require__(/*! ./components/ProductComponent */ "./resources/js/components/ProductComponent.vue")["default"]);
 Vue.component('rating-component', __webpack_require__(/*! ./components/RatingComponent */ "./resources/js/components/RatingComponent.vue")["default"]);
-Vue.component('favorite-component', __webpack_require__(/*! ./components/FavoriteComponent */ "./resources/js/components/FavoriteComponent.vue")["default"]);
 Vue.component('star-rating', StarRating);
 Vue.component('paginate', Paginate);
 /**
@@ -53695,9 +52532,6 @@ Vue.component('paginate', Paginate);
  */
 
 var app = new Vue({
-  render: function render(h) {
-    return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-  },
   el: '#app'
 });
 
@@ -53881,78 +52715,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeComponent_vue_vue_type_template_id_6bd63a28___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeComponent_vue_vue_type_template_id_6bd63a28___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/FavoriteComponent.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/FavoriteComponent.vue ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FavoriteComponent.vue?vue&type=template&id=e363f134& */ "./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134&");
-/* harmony import */ var _FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FavoriteComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/FavoriteComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FavoriteComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FavoriteComponent.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FavoriteComponent.vue?vue&type=template&id=e363f134& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FavoriteComponent.vue?vue&type=template&id=e363f134&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoriteComponent_vue_vue_type_template_id_e363f134___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

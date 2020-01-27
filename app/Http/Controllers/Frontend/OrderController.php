@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-    public function verify()
+    public function verify(Request $request)
     {
         $cart = Session::has('cart') ? Session::get('cart') : null;
         if (!$cart) {
@@ -46,7 +46,7 @@ class OrderController extends Controller
 
     public function getOrderLists($id)
     {
-        $order=Order::with('user','products.photos')->whereId($id)->first();
+        $order=Order::with('user','products.photos','province','city')->whereId($id)->first();
         return view('frontend.profile.lists',compact(['order']));
     }
 }

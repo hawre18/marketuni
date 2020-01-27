@@ -56,11 +56,13 @@ Route::prefix('admins')->group(function (){
    Route::get('comments','Backend\CommentController@index')->name('comments.index');
    Route::patch('comments','Backend\CommentController@edit')->name('comments.edit');
    Route::get('comments','Backend\CommentController@index')->name('comments.index');
+   Route::get('comments.show/{id}','Backend\CommentController@show')->name('comments.show');
    Route::get('comments.delete/{id}','Backend\CommentController@delete')->name('comments.delete');
    Route::post('comments/action/{id}','Backend\CommentController@action')->name('comments.action');
 });
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/profile','Frontend\HomeController@profile')->name('user.profile');
+    Route::get('/set-address','Frontend\ProfileController@createAddress')->name('set.address');
     Route::post('/coupon','Frontend\CouponController@addCoupon')->name('coupon.add');
     Route::get('/order-verify','Frontend\OrderController@verify')->name('order.verify');
     Route::get('/payment-verify/{id}','Frontend\PaymentController@verify')->name('payment.verify');
@@ -71,7 +73,6 @@ Route::group(['middleware'=>'auth'],function (){
 Route::resource('/','Frontend\HomeController');
 Route::get('verification','Auth\VerificationController@verify')->name('verification.verify');
 Route::get('/add-to-cart/{id}','Frontend\CartController@addToCart')->name('cart.add');
-Route::get('/user-acc','Auth\RegisterController@acc')->name('user.acc');
 Route::post('/remove-to-cart/{id}','Frontend\CartController@removeItem')->name('cart.remove');
 Route::get('/cart','Frontend\CartController@getCart')->name('cart.get');
 Route::get('product/single/{id}','Frontend\ProductController@getProduct')->name('products.single');

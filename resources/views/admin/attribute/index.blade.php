@@ -13,9 +13,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                @if(Session::has('attribute'))
+                @if(Session::has('attribute_success'))
                     <div class="alert alert-success">
-                        <div>{{Session('attribute')}}</div>
+                        <div>{{Session('attribute_success')}}</div>
+                    </div>
+                @elseif(Session::has('attribute_error'))
+                    <div class="alert alert-error">
+                        <div>{{Session('attribute_error')}}</div>
                     </div>
                 @endif
                 <div class="table-responsive">
@@ -31,7 +35,7 @@
                             <tbody>
                             @foreach($attributes as $attribute)
                                 <tr>
-                                    <td class="text-center">{{$attribute->id}}</td>
+                                    <td class="text-center">{{ $loop->index + 1 }}</td>
                                     <td class="text-center">{{$attribute->title}}</td>
                                     <td class="text-center">{{$attribute->type}}</td>
                                     <td class="text-center">

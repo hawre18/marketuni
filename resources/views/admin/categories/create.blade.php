@@ -15,6 +15,15 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form method="post" action="\admins\categories">
                             @csrf
                             <div class="form-group">
@@ -26,7 +35,7 @@
                                 <select name="category_parent" class="form-control">
                                     <option value="">انتخاب کنید</option>
                                     @foreach($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{$category->id}}" @if($category->id == old('$category_parent')) selected @endif>{{$category->name}}</option>
                                         @if(count($category->childrenRecursive)>0)
                                             @include('admin.partials.category',['categories'=>$category->childrenRecursive, 'level'=>1])
                                         @endif
@@ -35,15 +44,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="meta_title">عنوان سئو</label>
-                                <input type="text" name="meta_title" class="form-control" placeholder="عنوان سئو را وارد کنید">
+                                <input type="text" name="meta_title" value="{{old('meta_title')}}" class="form-control" placeholder="عنوان سئو را وارد کنید">
                             </div>
                             <div class="form-group">
                                 <label for="meta_desc">توضیحات سئو</label>
-                                <input type="text" name="meta_desc" class="form-control" placeholder="توضیحات سئو را وارد کنید">
+                                <input type="text" name="meta_desc" value="{{old('meta_desc')}}" class="form-control" placeholder="توضیحات سئو را وارد کنید">
                             </div>
                             <div class="form-group">
                                 <label for="meta_keywords">کلمات کلید سئو</label>
-                                <input type="text" name="meta_keywords" class="form-control" placeholder="کلمات کلیدی سئو را وارد کنید">
+                                <input type="text" name="meta_keywords" value="{{old('meta_keywords')}}" class="form-control" placeholder="کلمات کلیدی سئو را وارد کنید">
                             </div>
                             <button type="submit" class="btn btn-success pull-left">ذخیره</button>
                         </form>

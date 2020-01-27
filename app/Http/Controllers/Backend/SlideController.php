@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SlideController extends Controller
 {
@@ -37,13 +38,25 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'status' => 'required|numeric',
+        ]);
+
+        try{
         $slide=new Slide();
         $slide->title=$request->title;
         $slide->status=$request->status;
         $slide->save();
         $photos=explode(',',$request->input('photo_id')[0]);
         $slide->photos()->sync($photos);
-        return redirect('admins\slides');
+            Session::flash('slide_success','اسلاید با موفقیت ثبت شد');
+            return redirect('/admins/slides');
+        }
+        catch (\Exception $m){
+            Session::flash('slide_error','خطایی در ثبت اسلاید به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/slides');
+        }
     }
 
     /**
@@ -78,13 +91,25 @@ class SlideController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'status' => 'required|numeric',
+        ]);
+
+        try{
         $slide=Slide::findorfail($id);
         $slide->title=$request->title;
         $slide->status=$request->status;
         $slide->save();
         $photos=explode(',',$request->input('photo_id')[0]);
         $slide->photos()->sync($photos);
-        return redirect('admins\slides');
+            Session::flash('slide_success','اسلاید با موفقیت ویرایش شد');
+            return redirect('/admins/slides');
+        }
+        catch (\Exception $m){
+            Session::flash('slide_error','خطایی در ویرایش اسلاید به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/slides');
+        }
     }
 
     /**
@@ -99,8 +124,15 @@ class SlideController extends Controller
     }
     public function delete($id)
     {
+        try{
         $slide=Slide::findorfail($id);
         $slide->delete();
-        return redirect('admins\slides');
+            Session::flash('slide_success','اسلاید با موفقیت حذف شد');
+            return redirect('/admins/slides');
+        }
+        catch (\Exception $m){
+            Session::flash('slide_error','خطایی در حذف اسلاید به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/slides');
+        }
     }
 }

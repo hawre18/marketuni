@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fa',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fa',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'fa_IR',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,6 +164,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Hekmatinasser\Verta\VertaServiceProvider::class,
         Nagy\LaravelRating\LaravelRatingServiceProvider::class,
+        Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
         "LaravelRating" => \Nagy\LaravelRating\LaravelRatingFacade::class,
+        "Smsirlaravel" => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
     ],
 
 ];

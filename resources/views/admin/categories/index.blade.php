@@ -13,9 +13,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                @if(Session::has('error_category'))
+                @if(Session::has('category_success'))
+                    <div class="alert alert-success">
+                        <div>{{session('category_success')}}</div>
+                    </div>
+                @elseif(Session::has('category_error'))
                     <div class="alert alert-danger">
-                        <div>{{Session('error_category')}}</div>
+                        <div>{{session('category_error')}}</div>
                     </div>
                 @endif
                 <div class="table-responsive">
@@ -23,14 +27,14 @@
                             <thead>
                             <tr>
                                 <th class="text-center">شناسه</th>
-                                <th >عنوان</th>
+                                <th class="text-center">عنوان</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
                                 <tr>
-                                    <td class="text-center">{{$category->id}}</td>
+                                    <td class="text-center">{{ $loop->index + 1 }}</td>
                                     <td class="text-center">{{$category->name}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-warning" href="{{route('categories.edit',$category->id)}}">ویرایش</a>

@@ -21,7 +21,7 @@ class OrderController extends Controller
 
     public function getOrderLists($id)
     {
-        $order=Order::with('user.addresses.province','user.addresses.city','products.photos')->whereId($id)->first();
+        $order=Order::with('user','city','province','products.photos')->whereId($id)->first();
         return view('admin.orders.lists',compact(['order']));
     }
 

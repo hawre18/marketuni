@@ -44,6 +44,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:255',
+        ]);
+        try{
        $category=new Category();
        $category->name=$request->input('title');
        $category->parent_id=$request->input('category_parent');
@@ -51,7 +55,12 @@ class CategoryController extends Controller
        $category->meta_desc=$request->input('meta_desc');
        $category->meta_keywords=$request->input('meta_keywords');
        $category->save();
-       return redirect('/admins/categories');
+            Session::flash('category_success','دسته بندی با موفقیت ایجاد شد');
+            return redirect('/admins/categories');}
+        catch (\Exception $m){
+            Session::flash('category_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/categories');
+        }
     }
 
     /**
@@ -89,6 +98,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:255',
+        ]);
+        try{
         $category=Category::findorfail($id);
         $category->name=$request->input('title');
         $category->parent_id=$request->input('category_parent');
@@ -96,16 +109,27 @@ class CategoryController extends Controller
         $category->meta_desc=$request->input('meta_desc');
         $category->meta_keywords=$request->input('meta_keywords');
         $category->save();
-        return redirect('/admins/categories');
+        Session::flash('category_success','ویرایش با موفقیت انجام شده است');
+        return redirect('/admins/categories');}
+        catch (\Exception $m){
+            Session::flash('category_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/categories');
+        }
     }
     public function delete($id){
+        try{
         $category=Category::with('childrenRecursive')->where('id', $id)->first();
         if (count($category->childrenRecursive)>0) {
             Session::flash('error_category', 'دسته بندی '.$category->name.' دارای زیر دسته میباشد بنابراین حذف آن امکان پذیر نیست');
             return redirect('/admins/categories');
         }
             $category->delete();
+            Session::flash('category_success', 'حذف با موفقیت انجام شد');
+            return redirect('/admins/categories');}
+        catch (\Exception $m) {
+            Session::flash('category_error', 'خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
             return redirect('/admins/categories');
+        }
     }
     public function indexSetting($id){
         $category=Category::findorfail($id);
@@ -113,10 +137,16 @@ class CategoryController extends Controller
         return view('admin.categories.index-settings',compact(['category','attributeGroups']));
     }
     public function saveSetting(Request $request,$id){
+        try{
         $category=Category::findorfail($id);
         $category->attributeGroups()->sync($request->attributeGroups);
         $category->save();
-        return redirect()->to('admins/categories');
+            Session::flash('category_success','عملیات با موفقیت انجام شد');
+            return redirect()->to('admins/categories');}
+        catch (\Exception $m){
+            Session::flash('category_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/categories');
+        }
     }
     /**
      * Remove the specified resource from storage.

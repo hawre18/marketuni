@@ -10,11 +10,20 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form method="post" action="\admins\attributes">
                             @csrf
                             <div class="form-group">
                                 <label for="title">عنوان</label>
-                                <input type="text" name="title" class="form-control" placeholder="عنوان ویژگی ها">
+                                <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="عنوان ویژگی ها">
                             </div>
                             <div class="form-group">
                                 <label for="type">نوع</label>

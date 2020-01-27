@@ -48,8 +48,8 @@
                         </form>
                         @else
                         <ul>
-                            <li style="border: none;"><a href="{{route('login')}}"><i class="fa fa-sign-in"></i></a></li>
-                            <li style="border: none;"><a href="{{route('register')}}"><i class="fa fa-user-plus"></i></a></li>
+                           <li><a href="{{route('login')}}"><i class="fa fa-sign-in"></i></a></li>
+                           <li style="border: none;"><a href="{{route('register')}}"><i class="fa fa-user-plus"></i></a></li>
                         </ul>
                         @endif
                     </div>
@@ -193,10 +193,10 @@
     <!-- Feature Box Start-->
     <!-- Feature Box End-->
     <!--Footer Start-->
-    <footer id="footer">
-        <div class="fpart-first">
-            <div class="container">
-                <div class="row">
+    <footer id="footer" style="background-color:#0f4c75; ">
+        <div class="fpart-first" style="background-color:#0f4c75; ">
+            <div class="container" style="background-color:#0f4c75; ">
+                <div class="row" style="background-color:#0f4c75; ">
                     <div class="contact col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <h5>درباره مارکت شاپ</h5>
                         <p>قالب HTML فروشگاهی مارکت شاپ. این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</p>
@@ -223,8 +223,8 @@
                 </div>
             </div>
         </div>
-        <div class="fpart-second">
-            <div class="container">
+        <div class="fpart-second" style="background-color: #edf7fa;">
+            <div class="container" style="background-color: #edf7fa;">
                 <div id="powered" class="clearfix">
                     <div class="powered_text pull-left flip">
                         <p>حق کپی رایت برای فروشگاه ساکا مارکت محفوظ است<i class="fa fa-copyright"></i></p>

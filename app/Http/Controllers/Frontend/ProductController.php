@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function getProductByCategory($id)
     {
         $category=Category::whereId($id)->first();
-        return view('frontend.categories.index',compact(['category']));
+        return view('frontend.categories.index',compact(['category','categories']));
     }
     public function apiGetProduct($id)
     {
@@ -108,6 +108,12 @@ class ProductController extends Controller
         $favorite->product_id=$product->id;
         $favorite->save();
         return back();
+        }
+        elseif (count($isFavorited)>0){
+            $isFavorited=Favorite::whereProduct_id($product->id)->where('user_id',$user)->get();
+            $favoritedelet=Favorite::findorfail($isFavorited[0]->id);
+            $favoritedelet->delete();
+            return back();
         }
     }
 

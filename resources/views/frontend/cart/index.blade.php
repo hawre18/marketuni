@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('content')
-    <div id="container">
+    <div id="app">
         <div class="container">
             <!-- Breadcrumb Start-->
             <ul class="breadcrumb">
@@ -9,15 +9,14 @@
             </ul>
             <!-- Breadcrumb End-->
             <div class="row">
-                @if(Session::has('expired'))
+                @if(Session::has('coupon_success'))
+                     <div class="alert alert-danger">
+                          <div>{{Session('coupon_success')}}</div>
+                     </div>
+                @elseif(Session::has('coupon_expired'))
                     <div class="alert alert-danger">
-                        <div>{{Session('expired')}}</div>
+                        <div>{{Session('coupon_expired')}}</div>
                     </div>
-                @endif
-                    @if(Session::has('warning'))
-                        <div class="alert alert-danger">
-                            <div>{{Session('warning')}}</div>
-                        </div>
                 @endif
                 <!--Middle Part Start-->
                 <div id="content" class="col-sm-12">
@@ -68,57 +67,46 @@
                                 <div id="collapse-coupo n" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <label class="col-sm-4 control-label" for="input-coupon">کد تخفیف خود را در اینجا وارد کنید</label>
-                                        <form id="coupon-form" action="{{ route('coupon.add')}}" method="post">
+                                        <form action="{{ route('coupon.add')}}" method="post">
                                             @csrf
                                             <div class="input-group">
-                                                    <input type="text" name="coupon" value="" placeholder="کد تخفیف خود را در اینجا وارد کنید" id="input-coupon" class="form-control" />
-                                                    <button type="submit" id="button-coupon" data-loading-text="بارگذاری ..."  class="btn btn-primary" onclick="event.preventDefault();">اعمال تخفیف</button>
+                                                    <input type="text" name="code" placeholder="کد تخفیف خود را در اینجا وارد کنید" class="form-control"/>
+                                                    <button type="submit" class="btn btn-primary">اعمال تخفیف</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                   <!-- <div class="panel panel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">پیش بینی هزینه ی حمل و نقل و مالیات</h4>
                         </div>
                         <div id="collapse-shipping" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <p>مقصد خود را جهت براورد هزینه ی 0 تومان وارد کنید.</p>
-                                <form class="form-horizontal">
-                                    <div class="form-group required">
-                                        <label class="col-sm-2 control-label" for="input-country">کشور</label>
-                                        <div class="col-sm-10">
-                                            <select name="country_id" id="input-country" class="form-control">
-                                                <option value=""> --- لطفا انتخاب کنید --- </option>
-                                                <option value="244">Aaland Islands</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group required">
+                                <p>آدرس تحویل خرید خود را وارد کنید</p>
+                                 <div class="form-group required">
                                         <label class="col-sm-2 control-label" for="input-zone">شهر / استان</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" id="input-zone" name="zone_id">
-                                                <option value=""> --- لطفا انتخاب کنید --- </option>
-                                                <option value="13">Aberdeen</option>
-                                            </select>
+                                            <select-city-component></select-city-component>
                                         </div>
                                     </div>
                                     <div class="form-group required">
-                                        <label class="col-sm-2 control-label" for="input-postcode">کد پستی</label>
+                                        <label class="col-sm-2 control-label" for="postcode">کد پستی</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="postcode" value="" placeholder="کد پستی" id="input-postcode" class="form-control" />
                                         </div>
                                     </div>
-                                    <input type="button" value="دریافت پیش فاکتور" id="button-quote" data-loading-text="بارگذاری ..." class="btn btn-primary" />
-                                </form>
+                                   <div class="form-group required">
+                                       <label class="col-sm-2 control-label" for="address-1">کد پستی</label>
+                                       <div class="col-sm-10">
+                                           <input type="text" name="address-1" value="" placeholder="خیابان-کوچه-پلاک و..." id="address-1" class="form-control" />
+                                       </div>
+                                   </div>
                             </div>
                         </div>
-                    </div>-->
-                    <div class="row">
+                    </div> <div class="row">
                         <div class="col-sm-4 col-sm-offset-8">
                             <table class="table table-bordered">
                                 <tr>
@@ -129,12 +117,12 @@
                                     <td class="text-right"><strong>کسر هدیه</strong></td>
                                     <td class="text-right">{{Session::get('cart')->totalDiscountPrice}} تومان</td>
                                 </tr>
-                                @if(Auth::check()&&Session::get('cart')->coupon){
+                                @if(Auth::check()&&Session::get('cart')->coupon)
                                     <tr>
                                         <td class="text-right"><strong>{{Session::get('cart')->coupon['coupon']->title}}</strong></td>
                                         <td class="text-right">{{Session::get('cart')->couponDiscount}} تومان</td>
                                     </tr>
-                                }@endif
+                                @endif
                                 <tr>
                                     <td class="text-right"><strong>قابل پرداخت</strong></td>
                                     <td class="text-right">{{Session::get('cart')->totalPrice}} تومان</td>

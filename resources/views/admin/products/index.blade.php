@@ -13,9 +13,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                @if(Session::has('products'))
+                @if(Session::has('product_success'))
+                    <div class="alert alert-success">
+                        <div>{{Session('products_success')}}</div>
+                    </div>
+                @elseif(Session::has('product_error'))
                     <div class="alert alert-danger">
-                        <div>{{Session('products')}}</div>
+                        <div>{{Session('products_error')}}</div>
                     </div>
                 @endif
                 <div class="table-responsive">
@@ -31,9 +35,9 @@
                             <tbody>
                             @foreach($products as $product)
                                 <tr>
-                                    <td class="text-center">{{$product->id}}</td>
-                                    <td class="text-center">{{$product->sku}}</td>
-                                    <td class="text-center">{{$product->title}}</td>
+                                    <td class="text-center"><a href="{{ route('products.show', $product->id)}}">{{ $loop->index + 1 }}</a></td>
+                                    <td class="text-center"><a href="{{ route('products.show', $product->id)}}">{{$product->sku}}</a></td>
+                                    <td class="text-center"><a href="{{ route('products.show', $product->id)}}">{{$product->title}}</a></td>
                                     <td class="text-center">
                                         <a class="btn btn-warning" href="{{route('products.edit',$product->id)}}">ویرایش</a>
                                         <a class="btn btn-danger" href="{{route('products.delete',$product->id)}}">حذف</a>

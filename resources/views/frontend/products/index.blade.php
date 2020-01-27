@@ -20,7 +20,21 @@
                         <div class="col-sm-6">
                             <ul class="list-unstyled description">
                                 <li><b>برند :</b> <a href="#"><span itemprop="brand">{{$product->brand->title}}</span></a></li>
-                                <li><b>کد محصول :</b> <span itemprop="mpn">{{$product->slug}}</span></li>
+                                <li><b>کد محصول :</b> <span itemprop="mpn">{{$product->sku}}</span>
+                                    @if(Auth::user())
+                                    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{$product->id}}').submit();">
+                                        @if(count(App\Favorite::whereProduct_id($product->id)->whereUser_id(Auth::user()->id)->get())>0)
+                                            <i title="حذف از علاقه مندی" class="fa fa-heart"></i>
+                                        @else
+                                            <i title="افزودن به علاقه مندی" class="fa fa-heart-o"></i>
+                                        @endif
+                                        <form id="favorite-form-{{$product->id}}" method="post"
+                                              action="{{route('favorite.add',$product->id)}}" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </a>
+                                        @endif
+                                </li>
                                 @if($product->instock==1)
                                 <li><b>وضعیت موجودی :</b>
                                     <span class="instock">موجود</span>
@@ -42,13 +56,6 @@
                                     <div>
                                         <a href="{{route('cart.add',['id'=>$product->id])}}" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
                                     </div>
-                                   <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{$product->id}}').submit();">
-                                       <i class="fa fa-heart"></i>
-                                       <form id="favorite-form-{{$product->id}}" method="post"
-                                             action="{{route('favorite.add',$product->id)}}" style="display: none;">
-                                           @csrf
-                                       </form>
-                                   </a>
                                 </div>
                             </div>
                         @else
@@ -64,6 +71,8 @@
                                 <span>امتیاز محصول به انتخاب کاربران</span>
                                 <br/>
                                 <star-rating :inline="true" :read-only="true" :show-rating="false" :star-size="20" v-model="totalRating" :increment="0.1" active-color="#000000"></star-rating>
+                                <br/>
+                                <span>برای افزودن به لیست علاقه مندی ها ابتدا <a href="{{route('register')}}">ثبت نام کنید</a>/<a href="{{route('login')}}">وارد شوید</a></span>
                             </div>
                         </div>
                     </div>
@@ -126,7 +135,7 @@
                                 </div>
                             </form>
                             @else
-                                    <div id="review">
+                                <div id="review">
                                         <div>
                                             <table class="table table-striped table-bordered">
                                                 <tbody>
@@ -151,108 +160,35 @@
                                 @endif
                         </div>
                     </div>
-                    <h3 class="subtitle">محصولات مرتبط</h3>
-                    <div class="owl-carousel related_pro">
-                        <div class="product-thumb">
-                            @foreach($relatedProducts as $product)
-                                <div class="product-thumb">
-                                    <div class="image"><a href="{{route('products.single',['id'=>$product->id])}}"><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
-                                    <div class="caption">
-                                        <h4><a href="{{route('products.single',['id'=>$product->id])}}">{{$product->title}}</a></h4>
-                                        @if($product->discount_price)
-                                            <p class="price"><span class="price-new">{{$product->discount_price}} تومان</span> <span class="price-old">{{$product->discount_price}} تومان</span><span class="saving">{{round(abs(($product->price-$product->discount_price)/$product->discount_price*100))}}%</span></p>
-                                        @else
-                                            <p class="price"> {{$product->price}} تومان </p>
-                                        @endif
-                                    </div>
-                                    <div class="button-group">
-                                        <a class="btn-primary" href="{{route('cart.add',['id'=>$product->id])}}"><span>افزودن به سبد</span></a>
-                                        <div class="add-to-links">
-                                            <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                                            <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
             </div>
             <!--Middle Part End -->
             <!--Right Part Start -->
             <aside id="column-right" class="col-sm-3 hidden-xs">
-                <h3 class="subtitle">پرفروش ها</h3>
+                <h3 class="subtitle">محصولات مرتبط</h3>
                 <div class="side-item">
                     <div class="product-thumb clearfix">
-                        <div class="image">
-                            <a href="product.html">
-                                <img src="/image/product/apple_cinema_30-50x75.jpg" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" />
-                            </a>
-                        </div>
-                        <div class="caption">
-                            <h4><a href="product.html">تی شرت کتان مردانه</a></h4>
-                            <p class="price"><span class="price-new">110000 تومان</span> <span class="price-old">122000 تومان</span> <span class="saving">-10%</span></p>
-                        </div>
+                        @foreach($relatedProducts as $product)
+                            <div class="product-thumb">
+                                <div class="image"><a href="{{route('products.single',['id'=>$product->id])}}"><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
+                                <div class="caption">
+                                    <h4><a href="{{route('products.single',['id'=>$product->id])}}">{{$product->title}}</a></h4>
+                                    @if($product->discount_price)
+                                        <p class="price"><span class="price-new">{{$product->discount_price}} تومان</span> <span class="price-old">{{$product->discount_price}} تومان</span><span class="saving">{{round(abs(($product->price-$product->discount_price)/$product->discount_price*100))}}%</span></p>
+                                    @else
+                                        <p class="price"> {{$product->price}} تومان </p>
+                                    @endif
+                                </div>
+                                <div class="button-group">
+                                    <a class="btn-primary" href="{{route('cart.add',['id'=>$product->id])}}"><span>افزودن به سبد</span></a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/iphone_1-50x75.jpg" alt="آیفون 7" title="آیفون 7" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">آیفون 7</a></h4>
-                            <p class="price"> 2200000 تومان </p>
-                            <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group">
-                    <h3 class="subtitle">محتوای سفارشی</h3>
-                    <p>این یک بلاک محتواست. هر نوع محتوایی شامل html، نوشته یا تصویر را میتوانید در آن قرار دهید. </p>
-                    <p> در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                </div>
-                <h3 class="subtitle">ویژه</h3>
-                <div class="side-item">
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/macbook_pro_1-50x75.jpg" alt=" کتاب آموزش باغبانی " title=" کتاب آموزش باغبانی " class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">کتاب آموزش باغبانی</a></h4>
-                            <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">120000 تومان</span> <span class="saving">-26%</span> </p>
-                        </div>
-                    </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/samsung_tab_1-50x75.jpg" alt="تبلت ایسر" title="تبلت ایسر" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">تبلت ایسر</a></h4>
-                            <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">240000 تومان</span> <span class="saving">-5%</span> </p>
-                            <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-                        </div>
-                    </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/apple_cinema_30-50x75.jpg" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="http://demo.harnishdesign.net/opencart/marketshop/v1/index.php?route=product/product&amp;product_id=42">تی شرت کتان مردانه</a></h4>
-                            <p class="price"> <span class="price-new">110000 تومان</span> <span class="price-old">122000 تومان</span> <span class="saving">-10%</span> </p>
-                        </div>
-                    </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/nikon_d300_1-50x75.jpg" alt="دوربین دیجیتال حرفه ای" title="دوربین دیجیتال حرفه ای" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">دوربین دیجیتال حرفه ای</a></h4>
-                            <p class="price"> <span class="price-new">92000 تومان</span> <span class="price-old">98000 تومان</span> <span class="saving">-6%</span> </p>
-                        </div>
-                    </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/nikon_d300_5-50x75.jpg" alt="محصولات مراقبت از مو" title="محصولات مراقبت از مو" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">محصولات مراقبت از مو</a></h4>
-                            <p class="price"> <span class="price-new">66000 تومان</span> <span class="price-old">90000 تومان</span> <span class="saving">-27%</span> </p>
-                            <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-                        </div>
-                    </div>
-                    <div class="product-thumb clearfix">
-                        <div class="image"><a href="product.html"><img src="/image/product/macbook_air_1-50x75.jpg" alt="لپ تاپ ایلین ور" title="لپ تاپ ایلین ور" class="img-responsive" /></a></div>
-                        <div class="caption">
-                            <h4><a href="product.html">لپ تاپ ایلین ور</a></h4>
-                            <p class="price"> <span class="price-new">10 میلیون تومان</span> <span class="price-old">12 میلیون تومان</span> <span class="saving">-5%</span> </p>
+                    <div class="list-group">
+                        <h3 class="subtitle">درباره محصول {{$product->title}}</h3>
+                        <div class="center-block justify-content-end">
+                            <p>{!! $product->short_description !!}</p>
                         </div>
                     </div>
                 </div>

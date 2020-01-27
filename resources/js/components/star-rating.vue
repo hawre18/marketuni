@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vue-star-rating', {'vue-star-rating-ltr':ltr}, {'vue-star-rating-inline': inline}]">
+    <div :class="['vue-star-rating', {'vue-star-rating-ltr':rtl}, {'vue-star-rating-inline': inline}]">
         <div @mouseleave="resetRating" class="vue-star-rating">
             <span v-for="n in maxRating" :key="n" :class="[{'vue-star-rating-pointer': !readOnly }, 'vue-star-rating-star']" :style="{'margin-right': margin + 'px'}">
               <star :fill="fillLevel[n-1]" :size="starSize" :points="starPoints" :star-id="n" :step="step" :active-color="activeColor" :inactive-color="inactiveColor" :border-color="borderColor" :border-width="borderWidth" :rounded-corners="roundedCorners" @star-selected="setRating($event, true)" @star-mouse-move="setRating" :rtl="rtl" :glow="glow" :glow-color="glowColor"></star>

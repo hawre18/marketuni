@@ -16,6 +16,12 @@ class CommentController extends Controller
         return view('admin.comments.index',compact(['comments','product']));
     }
 
+    public function show($id)
+    {
+        $comment=Comment::with('user')->whereId($id)->first();
+        return view('admin.comments.show',compact('comment'));
+    }
+
     public function action(Request $request,$id)
     {
         if ($request->has('action')){
@@ -37,10 +43,15 @@ class CommentController extends Controller
     }
     public function delete($id)
     {
+        try{
         $comment=Comment::findorfail($id);
         $comment->delete();
-        Session::flash('comments','برند با موفقیت حذف شد');
-        return redirect('/admins/comments');
+        Session::flash('comments_success','نظر با موفقیت حذف شد');
+        return redirect('/admins/comments');}
+        catch (\Exception $m) {
+            Session::flash('comment_error', 'خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/comments');
+        }
 
     }
 

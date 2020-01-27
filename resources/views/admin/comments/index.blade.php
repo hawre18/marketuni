@@ -8,6 +8,15 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if(Session::has('comment_success'))
+                    <div class="alert alert-success">
+                        <div>{{session('comment_success')}}</div>
+                    </div>
+                @elseif(Session::has('comment_error'))
+                    <div class="alert alert-danger">
+                        <div>{{session('comment_error')}}</div>
+                    </div>
+                @endif
                 <div class="table-responsive">
                         <table class="table no-margin">
                             <thead>
@@ -24,8 +33,8 @@
                             <tbody>
                             @foreach($comments as $comment)
                                 <tr>
-                                    <td class="text-center" >{{$comment->id}}</td>
-                                    <td class="text-center" >{{$comment->description}}</td>
+                                    <td class="text-center" ><a href="{{ route('comments.show', $comment->id)}}">{{ $loop->index + 1 }}</a></td>
+                                    <td class="text-center" ><a href="{{ route('comments.show', $comment->id)}}">{{mb_substr($comment->description, 0, 15).' ...' }}</a></td>
                                     <td class="text-center" >{{$comment->user->name.' '.$comment->user->last_name}}</td>
                                     <td class="text-center" >{{\Hekmatinasser\Verta\Verta::instance($comment->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</td>
                                     <td class="text-center" >{{$comment->product->title. ' '. 'با کد'.$comment->product->sku}}</td>

@@ -23,10 +23,10 @@
                     <!-- Slideshow End-->
                     <!-- محصولات Tab Start -->
                     <div id="product-tab" class="product-tab">
-                        <ul id="tabs" class="tabs"style="border-color: #f8b400;">
-                            <li><a href="#tab-latest"style="border-color: #f8b400;">جدیدترین</a></li>
-                            <li><a href="#tab-featured"style="border-color: #f8b400;">ویژه</a></li>
-                            <li><a href="#tab-bestseller"style="border-color: #f8b400;">پرفروش</a></li>
+                        <ul id="tabs" class="tabs"style="border-color: #0f4c75;">
+                            <li><a href="#tab-latest"style="border-color: #0f4c75;">جدیدترین</a></li>
+                            <li><a href="#tab-featured"style="border-color: #0f4c75;">ویژه</a></li>
+                            <li><a href="#tab-bestseller"style="border-color: #0f4c75;">پرفروش</a></li>
                         </ul>
                         <div id="tab-latest" class="tab_content">
                             <div class="owl-carousel product_carousel_tab">
@@ -97,16 +97,16 @@
                         </div>
                     </div>    <!-- محصولات Tab Start -->
                     <!-- دسته ها محصولات Slider Start-->
-                    <div class="category-module" id="latest_category"style="border-color: #f8b400;">
-                        <h3 class="subtitle"style="border-color: #f8b400;">مد و زیبایی - <a class="viewall" href="category.tpl" style="border-color: #f8b400;">نمایش همه</a></h3>
-                        <div class="category-module-content"style="border-color: #f8b400;">
-                            <ul id="sub-cat" class="tabs" style="border-color: #f8b400;">
-                                <li><a href="#tab-cat1" style="border-color: #f8b400;">آقایان</a></li>
-                                <li><a href="#tab-cat2" style="border-color: #f8b400;">بانوان</a></li>
-                                <li><a href="#tab-cat3" style="border-color: #f8b400;">دخترانه</a></li>
-                                <li><a href="#tab-cat4" style="border-color: #f8b400;">پسرانه</a></li>
-                                <li><a href="#tab-cat5" style="border-color: #f8b400;">نوزاد</a></li>
-                                <li><a href="#tab-cat6" style="border-color: #f8b400;">لوازم</a></li>
+                    <div class="category-module" id="latest_category"style="border-color: #0f4c75;">
+                        <h3 class="subtitle"style="border-color: #0f4c75;">مد و زیبایی - <a class="viewall" href="#" style="border-color: #0f4c75;">نمایش همه</a></h3>
+                        <div class="category-module-content"style="border-color: #0f4c75;">
+                            <ul id="sub-cat" class="tabs" style="border-color: #0f4c75;">
+                                <li><a href="#tab-cat1" style="border-color: #0f4c75;">آقایان</a></li>
+                                <li><a href="#tab-cat2" style="border-color: #0f4c75;">بانوان</a></li>
+                                <li><a href="#tab-cat3" style="border-color: #0f4c75;">دخترانه</a></li>
+                                <li><a href="#tab-cat4" style="border-color: #0f4c75;">پسرانه</a></li>
+                                <li><a href="#tab-cat5" style="border-color: #0f4c75;">نوزاد</a></li>
+                                <li><a href="#tab-cat6" style="border-color: #0f4c75;">لوازم</a></li>
                             </ul>
                             <div id="tab-cat1" class="tab_content" >
                                 <div class="owl-carousel latest_category_tabs">

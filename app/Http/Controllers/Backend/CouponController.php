@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Coupon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CouponController extends Controller
 {
@@ -26,7 +27,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view('admin.coupns.create');
+        return view('admin.coupons.create');
     }
 
     /**
@@ -37,19 +38,32 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        $coupon=new Coupon();
-        $coupon->title=$request->title;
-        $coupon->code=$request->code;
-        $coupon->price=$request->price;
-        $coupon->status=$request->status;
-        $coupon->save();
-        return view('admin.coupon.index');
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'code' => 'required|uniq:coupons',
+            'price' => 'required',
+        ]);
+        try {
+            $coupon = new Coupon();
+            $coupon->title = $request->title;
+            $coupon->code = $request->code;
+            $coupon->price = $request->price;
+            $coupon->status = $request->status;
+            $coupon->save();
+            Session::flash('coupon_success', 'کد تخفیف با موفقیت ثبت شد');
+            return redirect('/admins/coupons');
+        }
+        catch (\Exception $m) {
+            Session::flash('coupon_error', 'خطایی در ثب به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/coupons');
+        }
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -60,37 +74,57 @@ class CouponController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $coupon=Coupon::findorfail($id);
-        return view('admin.coupons.edit',compact(['coupon']));
+        $coupon = Coupon::findorfail($id);
+        return view('admin.coupons.edit', compact(['coupon']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $coupon=Coupon::findorfail($id);
-        $coupon->title=$request->title;
-        $coupon->code=$request->code;
-        $coupon->price=$request->price;
-        $coupon->status=$request->status;
-        $coupon->save();
-        return view('admin.coupon.index');
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'code' => 'required|unique:coupons,code,' . $id,
+            'price' => 'required',
+        ]);
+        try {
+            $coupon = Coupon::findorfail($id);
+            $coupon->title = $request->title;
+            $coupon->code = $request->code;
+            $coupon->price = $request->price;
+            $coupon->status = $request->status;
+            $coupon->save();
+            Session::flash('coupon_success', 'کد تخفیف با موفقیت بروز شد');
+            return redirect('/admins/coupons');
+        }
+        catch (\Exception $m) {
+            Session::flash('coupon_error', 'خطایی در ,یرایش به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/coupons');
+        }
     }
 
-    public function delet($id)
+    public function delete($id)
     {
+        try{
         $coupon=Coupon::findorfail($id);
-        $coupon->delet();
+        $coupon->delete();
+        Session::flash('coupon_success', 'کد تخفیف با موفقیت حذف شد');
+            return redirect('/admins/coupons');
+        }
+        catch (\Exception $m) {
+            Session::flash('coupon_error', 'حذف انجام نشد');
+            return redirect('/admins/coupons');
+        }
     }
     /**
      * Remove the specified resource from storage.

@@ -55,13 +55,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['string', 'max:255'],
-            'email' => ['string', 'email', 'max:255', 'unique:users'],
-            'password' => ['string', 'min:8'],
-            'last_name' => ['string'],
-            'national_code' => ['required'],
-            'phone' => ['required'],
-            'gender' => ['required']
+            'name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users',
+            'last_name' => 'string',
+            'password' => 'string|min:7',
+            'national_code' => 'required',
+            'phone' => 'required',
+            'gender' => 'required'
 
         ]);
     }
@@ -74,25 +74,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       return User::create([
+
+       $user=User::create([
             'name'=>$data['name'],
             'email'=>$data['email'],
             'last_name'=>$data['lastname'],
-            'national_code'=>$data['national_code'],
+           'password'=>Hash::make($data['password']),
+           'national_code'=>$data['national_code'],
             'phone'=>$data['phone'],
             'gender'=>$data['gender'],
-            'province_id'=>$data['province'],
-            'password'=>Hash::make($data['password']),
-        ],
-        $address=new Address(),
-        $address->address=$data['address'],
-        $address->city_id=$data['city'],
-        $address->province_id=$data['province'],
-        $address->post_code=$data['post_code'],
-        $address->user_id=1,
-        $address->save()
-        );
-
+       ]);
+        return $user;
     }
 
 

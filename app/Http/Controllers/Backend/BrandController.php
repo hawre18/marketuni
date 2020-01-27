@@ -16,7 +16,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands=Brand::paginate(10);
+        $brands=Brand::with('photo')->paginate(10);
         return view('admin.brands.index',compact('brands'));
     }
 
@@ -38,13 +38,24 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:brands|min:3|max:255',
+            'description' => 'required',
+            'photo_id' => 'required',
+        ]);
+        try{
         $brand=new Brand();
         $brand->title=$request->input('title');
         $brand->description=$request->input('description');
         $brand->photo_id=$request->input('photo_id');
         $brand->save();
-        Session::flash('brand','برند با موفقیت ثبت شد');
+        Session::flash('brand_success','برند با موفقیت ثبت شد');
         return redirect('/admins/brands');
+        }
+        catch (\Exception $m){
+            Session::flash('brand_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/brands');
+        }
 
     }
 
@@ -56,7 +67,8 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
+        $brand=Brand::with('photo')->whereId($id)->first();
+        return view('admin.brands.show',compact('brand'));
     }
 
     /**
@@ -80,20 +92,36 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand=Brand::findorfail($id);
-        $brand->title=$request->input('title');
-        $brand->description=$request->input('description');
-        $brand->photo_id=$request->input('photo_id');
-        $brand->save();
-        Session::flash('brand','برند با موفقیت ویرایش شد');
-        return redirect('/admins/brands');
+        $validatedData = $request->validate([
+            'title' => 'required|unique:brands,title,' . $id .'|min:3|max:255',
+            'description' => 'required',
+            'photo_id' => 'required',
+        ]);
+        try{
+            $brand=Brand::findorfail($id);
+            $brand->title=$request->input('title');
+            $brand->description=$request->input('description');
+            $brand->photo_id=$request->input('photo_id');
+            $brand->save();
+            Session::flash('brand_success','برند با موفقیت ویرایش شد');
+            return redirect('/admins/brands');
+        }
+        catch (\Exception $m){
+            Session::flash('brand_error','خطایی در ویرایش به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/brands');
+        }
     }
     public function delete($id)
     {
+        try{
         $brand=Brand::findorfail($id);
         $brand->delete();
-        Session::flash('brands','برند با موفقیت حذف شد');
+        Session::flash('brands_success','برند با موفقیت حذف شد');
+        return redirect('/admins/brands');}
+        catch (\Exception $m) {
+        Session::flash('brand_error', 'خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
         return redirect('/admins/brands');
+        }
 
     }
     /**
