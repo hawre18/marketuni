@@ -25,7 +25,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="title">عنوان اسلاید</label>
-                                <input type="text" name="title" class="form-control" placeholder="عنوان اسلاید">
+                                <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="عنوان اسلاید">
                             </div>
                             <div>
                                 <label >وضعیت نشر</label>

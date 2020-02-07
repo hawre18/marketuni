@@ -30,8 +30,8 @@
                             </div>
                             <lable>برند محصول: {{$product->brand->title}}</lable></br>
                             <lable>کاربر ایجاد کننده محصول: {{$product->user->name . ' ' . $product->user->last_name}}</lable></br>
-                                        <a class="btn btn-warning" href="{{route('products.edit',$product->id)}}">ویرایش</a>
-                                        <a class="btn btn-danger" href="{{route('products.delete',$product->id)}}">حذف</a>
+                            <a class="btn btn-warning" href="{{route('products.edit',$product->id)}}">ویرایش</a>
+                            <a class="btn btn-danger" href="{{route('products.delete',$product->id)}}">حذف</a>
             </div>
             <!-- /.box-body -->
         </div>

@@ -165,6 +165,7 @@ return [
         Hekmatinasser\Verta\VertaServiceProvider::class,
         Nagy\LaravelRating\LaravelRatingServiceProvider::class,
         Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -234,6 +235,7 @@ return [
         'Verta' => Hekmatinasser\Verta\Verta::class,
         "LaravelRating" => \Nagy\LaravelRating\LaravelRatingFacade::class,
         "Smsirlaravel" => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

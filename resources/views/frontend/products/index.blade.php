@@ -108,7 +108,7 @@
                                         <table class="table table-striped table-bordered">
                                             <tbody>
                                             @foreach($commentsProduct as $comments)
-                                                <th>{{$comments->user->name.' '.$comments->user->last_name}}<strong class="pull-left">{{\Hekmatinasser\Verta\Verta::instance($comments->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</strong></th>
+                                                <th>{{$comments->user['name'].' '.$comments->user['last_name']}}<strong class="pull-left">{{\Hekmatinasser\Verta\Verta::instance($comments->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</strong></th>
                                             <tr>
                                                 <td>
                                                   {{$comments->description}}
@@ -140,7 +140,7 @@
                                             <table class="table table-striped table-bordered">
                                                 <tbody>
                                                 @foreach($commentsProduct as $comments)
-                                                    <th>{{$comments->user->name.' '.$comments->user->last_name}}<strong class="pull-left">{{\Hekmatinasser\Verta\Verta::instance($comments->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</strong></th>
+                                                    <th>{{$comments->user['name'].' '.$comments->user['last_name']}}<strong class="pull-left">{{\Hekmatinasser\Verta\Verta::instance($comments->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</strong></th>
                                                     <tr>
                                                         <td>
                                                             {{$comments->description}}
@@ -163,37 +163,6 @@
                 </div>
             </div>
             <!--Middle Part End -->
-            <!--Right Part Start -->
-            <aside id="column-right" class="col-sm-3 hidden-xs">
-                <h3 class="subtitle">محصولات مرتبط</h3>
-                <div class="side-item">
-                    <div class="product-thumb clearfix">
-                        @foreach($relatedProducts as $product)
-                            <div class="product-thumb">
-                                <div class="image"><a href="{{route('products.single',['id'=>$product->id])}}"><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
-                                <div class="caption">
-                                    <h4><a href="{{route('products.single',['id'=>$product->id])}}">{{$product->title}}</a></h4>
-                                    @if($product->discount_price)
-                                        <p class="price"><span class="price-new">{{$product->discount_price}} تومان</span> <span class="price-old">{{$product->discount_price}} تومان</span><span class="saving">{{round(abs(($product->price-$product->discount_price)/$product->discount_price*100))}}%</span></p>
-                                    @else
-                                        <p class="price"> {{$product->price}} تومان </p>
-                                    @endif
-                                </div>
-                                <div class="button-group">
-                                    <a class="btn-primary" href="{{route('cart.add',['id'=>$product->id])}}"><span>افزودن به سبد</span></a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="list-group">
-                        <h3 class="subtitle">درباره محصول {{$product->title}}</h3>
-                        <div class="center-block justify-content-end">
-                            <p>{!! $product->short_description !!}</p>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-            <!--Right Part End -->
         </div>
     </div>
 @endsection

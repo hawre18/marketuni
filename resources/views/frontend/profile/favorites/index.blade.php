@@ -10,7 +10,7 @@
                     <li><a href="#">فراموشی رمز عبور</a></li>
                     <li><a href="#">حساب کاربری</a></li>
                     <li><a href="#">لیست آدرس ها</a></li>
-                    <li><a href="{{route('favorites.list')}}">لیست علاقه مندی</a></li>
+                    <li><a href="{{route('favorites.list')}}.html">لیست علاقه مندی</a></li>
                     <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
                     <li><a href="#">دانلود ها</a></li>
                     <li><a href="#">امتیازات خرید</a></li>
@@ -42,25 +42,15 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">شناسه</th>
-                                    <th class="text-center">آدرس</th>
-                                    <th class="text-center">شرکت</th>
-                                    <th class="text-center">استان</th>
-                                    <th class="text-center">شهر</th>
-                                    <th class="text-center">کدپستی</th>
-                                    <th class="text-center">تلفن</th>
+                                    <th class="text-center">نام محصول</th>
                                     <th class="text-center">عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($addresses as $address)
+                                @foreach($favorites as $favorite)
                                     <tr>
                                         <td class="text-center">{{$loop->index+1}}</td>
-                                        <td class="text-center">{{$address->address}}</td>
-                                        <td class="text-center">{{$address->company}}</td>
-                                        <td class="text-center">{{$address->province->name}}</td>
-                                        <td class="text-center">{{$address->city->name}}</td>
-                                        <td class="text-center">{{$address->post_code}}</td>
-                                        <td class="text-center">{{$address->phone}}</td>
+                                        <td class="text-center">{{$favorite->product->title}}</td>
                                         <td class="text-center">
                                             <a class="btn btn-warning" href="{{route('address.edit', $address->id)}}">ویرایش</a>
                                             <a type="submit" class="btn btn-danger" href="{{route('address.delete', $address->id)}}">حذف</a>

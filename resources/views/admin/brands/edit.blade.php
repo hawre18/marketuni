@@ -24,7 +24,7 @@
                             </div>
                         @endif
 
-                        <form method="post" action="/administrator/brands/{{$brand->id}}">
+                        <form method="post" action="/admins/brands/{{$brand->id}}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
 

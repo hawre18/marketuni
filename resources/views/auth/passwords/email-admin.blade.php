@@ -18,7 +18,7 @@
                          </div>
                     @endif
                     <div class="col-sm-12">
-                        <form method="POST" action="{{ route('password.email') }}">
+                        <form method="POST" action="{{ route('admin.password.email') }}">
                             @csrf
                             <div class="form-group">
                                 <label class="control-label" for="input-email">آدرس ایمیل</label>

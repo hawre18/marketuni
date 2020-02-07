@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name', 'email', 'password','last_name','national_code',
-        'phone','birthday','gender','province_id'
+        'phone','birthday','gender','email_token','google_id'
     ];
 
     /**
@@ -39,6 +39,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function verified()
+    {
+        $this->verified = 1;
+        $this->email_token = null;
+        $this->save();
+    }
 
     public function photos(){
         return $this->hasMany(Photo::Class);
@@ -67,4 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
 }

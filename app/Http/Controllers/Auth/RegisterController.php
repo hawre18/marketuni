@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
+
+use DB;
+use Mail;
+use Session;
+use Validator;
 use App\Address;
 use App\City;
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerification;
 use App\Providers\RouteServiceProvider;
 use App\Province;
 use App\User;
 use http\Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+
 
 class RegisterController extends Controller
 {
@@ -34,7 +41,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo ='/profile';
+    protected $redirectTo ='/home';
 
     /**
      * Create a new controller instance.
@@ -75,7 +82,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-       $user=User::create([
+       $user=User::create(array(
             'name'=>$data['name'],
             'email'=>$data['email'],
             'last_name'=>$data['lastname'],
@@ -83,27 +90,44 @@ class RegisterController extends Controller
            'national_code'=>$data['national_code'],
             'phone'=>$data['phone'],
             'gender'=>$data['gender'],
-       ]);
+       ));
         return $user;
     }
 
-
-
-    public function getAllProvince()
+    public function register(Request $request)
     {
-        $provinces=Province::all();
-        $response=[
-            'provinces'=>$provinces
-        ];
-        return response()->json($response,200);
+        // Laravel validation
+        $validator = $this->validator($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException($request, $validator);
+        }
+        // Using database transactions is useful here because stuff happening is actually a transaction
+        // I don't know what I said in the last line! Weird!
+        DB::beginTransaction();
+        try
+        {
+            $user = $this->create($request->all());
+            // After creating the user send an email with the random token generated in the create method above
+            $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
+            Mail::to($user->email)->send($email);
+            DB::commit();
+            Session::flash('verify_email', 'ایمیل تایید حساب کاربری برای شما ارسال شد');
+            return back();
+        }
+        catch(Exception $e)
+        {
+            DB::rollback();
+            return back();
+        }
     }
-    public function getAllCities($provinceId)
+    public function verify($token)
     {
-        $cities=City::where('province_id',$provinceId)->get();
-        $response=[
-            'cities'=>$cities
-        ];
-        return response()->json($response,200);
+        // The verified method has been added to the user model and chained here
+        // for better readability
+        User::where('email_token',$token)->firstOrFail()->verified();
+        Session::flash('verified_email', 'حساب کاربری شما با موفقیت تایید شد');
+        return redirect('login');
     }
 
 }

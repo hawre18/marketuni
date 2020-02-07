@@ -2,12 +2,17 @@
 
 @section('content')
     <div class="row center-block">
-        <!--Middle Part Start-->
+        @if(Session::has('verify_email'))
+            <div class="alert alert-success">
+                <div>{{session('verify_email')}}</div>
+            </div>
+    @endif
+    <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
             <h1 class="title">ثبت نام حساب کاربری</h1>
             <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="{{route('login')}}">صفحه لاگین</a> مراجعه کنید.</p>
-            <form class="form-horizontal" method="post" action="{{ route('register') }}">
-                @csrf
+            <form class="form-horizontal" method="post" action="{{ url('/register') }}">
+                {{ csrf_field() }}
                 <fieldset id="account">
                     <legend>اطلاعات شخصی شما</legend>
                     <div class="form-group required">

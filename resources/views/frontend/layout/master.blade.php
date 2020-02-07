@@ -39,11 +39,11 @@
                     <div id="top-links" class="nav pull-right flip" style="background-color: #edf7fa;border: none;">
                         @if(Auth::check())
                         <ul>
-                            <li style="border: none;"><a href="{{route('logout')}}" onclick="event.preventDefault();
+                            <li style="border: none;"><a href="{{route('user.logout')}}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i></a></li>
                             <li style="border: none;"><a href="{{route('user.profile')}}"><i class="fa fa-user"></i></a></li>
                         </ul>
-                        <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                        <form id="logout-form" action="{{ route('user.logout') }}" method="post" style="display: none;">
                             @csrf
                         </form>
                         @else
@@ -147,7 +147,7 @@
             <div class="container" style="background-color: #0f4c75;border-radius:5px;">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a class="home_link" title="خانه" href="{{''}}">خانه</a></li>
+                        <li><a class="home_link" title="خانه" href="{{url('/')}}">خانه</a></li>
                         @foreach($categories=App\Category::where('parent_id',null)->get() as $cat)
                             @if( $cat->parent_id == null )
                                 <li class="dropdown"><a href="{{route('category.index',['id'=>$cat])}}">{{$cat->name}}</a>
@@ -207,7 +207,6 @@
                             <ul>
                                 <li><a href="{{route('user.profile')}}">حساب کاربری</a></li>
                                 <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
-                                <li><a href="#">لیست علاقه مندی</a></li>
                                 <li><a href="contact-us.html">تماس با ما</a></li>
 
                             </ul>

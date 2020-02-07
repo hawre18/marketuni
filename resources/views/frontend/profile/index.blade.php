@@ -14,8 +14,8 @@
                 <li><a href="register.html">ثبت نام</a></li>
                 <li><a href="#">فراموشی رمز عبور</a></li>
                 <li><a href="#">حساب کاربری</a></li>
-                <li><a href="#">لیست آدرس ها</a></li>
-                <li><a href="wishlist.html">لیست علاقه مندی</a></li>
+                <li><a href="{{route('addresses.list')}}">لیست آدرس ها</a></li>
+                <li><a href="{{route('favorites.list')}}">لیست علاقه مندی</a></li>
                 <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
                 <li><a href="#">دانلود ها</a></li>
                 <li><a href="#">امتیازات خرید</a></li>

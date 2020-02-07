@@ -98,24 +98,6 @@ class ProductController extends Controller
     {
         return RatingResource::collection(Rating::all()->where('product_id',$id));
     }
-    public function favoriteProduct(Product $product)
-    {
-        $user=Auth::user()->id;
-        $isFavorited=Favorite::whereProduct_id($product->id)->where('user_id',$user)->get();
-        if (!count($isFavorited)>0){
-        $favorite=new Favorite();
-        $favorite->user_id=$user;
-        $favorite->product_id=$product->id;
-        $favorite->save();
-        return back();
-        }
-        elseif (count($isFavorited)>0){
-            $isFavorited=Favorite::whereProduct_id($product->id)->where('user_id',$user)->get();
-            $favoritedelet=Favorite::findorfail($isFavorited[0]->id);
-            $favoritedelet->delete();
-            return back();
-        }
-    }
 
     /**
      * Unfavorite a particular post

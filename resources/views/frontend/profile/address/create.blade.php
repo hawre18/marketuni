@@ -5,7 +5,7 @@
         <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
             <h1 class="title">ایجاد آدرس</h1>
-            <form class="form-horizontal" method="post" action="{{url('ste-address')}}">
+            <form class="form-horizontal" method="post" action="{{route('address.store')}}">
                 @csrf
                 <fieldset id="address">
                     <legend>آدرس</legend>
