@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Address;
 use App\Cart;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -32,7 +34,10 @@ class CartController extends Controller
 
     public function getCart()
     {
+      if (Auth::check()){
+      $addresses=Address::with('province','city')->where('user_id',Auth::user()->id)->get();
+      }
       $cart = Session::has('cart') ? Session::get('cart') : null;
-      return view('frontend.cart.index', compact(['cart']));
+      return view('frontend.cart.index', compact(['cart','addresses']));
     }
 }

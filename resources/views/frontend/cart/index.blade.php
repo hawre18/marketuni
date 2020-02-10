@@ -79,32 +79,42 @@
                             </div>
                         </div>
                     </div>
+                    <div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title">پیش بینی هزینه ی حمل و نقل و مالیات</h4>
+                            <h4 class="panel-title">هزینه ارسال</h4>
                         </div>
                         <div id="collapse-shipping" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <p>آدرس تحویل خرید خود را وارد کنید</p>
-                                 <div class="form-group required">
-                                        <label class="col-sm-2 control-label" for="input-zone">شهر / استان</label>
-                                        <div class="col-sm-10">
-                                            <select-city-component></select-city-component>
+                            @if(Auth::check())
+                                <div class="panel-body">
+                                    @if(count($addresses)>0)
+                                        <p>آدرس تحویل خرید خود را انتخاب کنید</p>
+                                         <div class="form-group required">
+                                             <label class="col-sm-2 control-label" for="address-1">انتخاب آدرس</label>
+                                                 @foreach($addresses as $address)
+                                                     <br>
+                                                 <form id="address" action="{{route('order.verify')}}" method="get">
+                                                 <input type="radio" name="address" value="{{$address->id}}" id="address-1" />{{$address->province['name']. ' '.$address->city['name']. ' '.$address->address}}
+                                                     <div class="pull-left"><button type="submit" class="btn btn-primary">تسویه حساب</button></div>
+                                                 </form>
+                                                 @endforeach
+                                         </div>
+                                    @else
+                                        <p>آدرسی موجود نیست لطفا ابتدا آدرس را در پروفایل خود ثبت کنید</p>
+                                        <div class="form-group required">
+                                            <label class="col-sm-2 control-label" for="address-1">انتخاب آدرس</label>
+                                            <a class="btn btn-primary" href="{{route('address.create')}}">ثبت آدرس</a>
                                         </div>
-                                    </div>
+                                    @endif
+                                </div>
+                            @else
+                                <div class="panel-body">
+                                    <p>آدرس تحویل خرید خود را انتخاب کنید</p>
                                     <div class="form-group required">
-                                        <label class="col-sm-2 control-label" for="postcode">کد پستی</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="postcode" value="" placeholder="کد پستی" id="input-postcode" class="form-control" />
-                                        </div>
+                                        <p>ابتدا <a href="{{route('login')}}">وارد</a> حساب کاربری خود شوید</p>
                                     </div>
-                                   <div class="form-group required">
-                                       <label class="col-sm-2 control-label" for="address-1">کد پستی</label>
-                                       <div class="col-sm-10">
-                                           <input type="text" name="address-1" value="" placeholder="خیابان-کوچه-پلاک و..." id="address-1" class="form-control" />
-                                       </div>
-                                   </div>
-                            </div>
+                                </div>
+                            @endif
                         </div>
                     </div> <div class="row">
                         <div class="col-sm-4 col-sm-offset-8">
@@ -124,6 +134,10 @@
                                     </tr>
                                 @endif
                                 <tr>
+                                    <td class="text-right"><strong>هزینه ارسال</strong></td>
+                                    <td class="text-right">{{Session::get('cart')->shippingCost}} تومان</td>
+                                </tr>
+                                <tr>
                                     <td class="text-right"><strong>قابل پرداخت</strong></td>
                                     <td class="text-right">{{Session::get('cart')->totalPrice}} تومان</td>
                                 </tr>
@@ -132,7 +146,6 @@
                     </div>
                     <div class="buttons">
                         <div class="pull-left"><a href="{{url('/')}}" class="btn btn-default">ادامه خرید</a></div>
-                        <div class="pull-right"><a href="{{route('order.verify')}}" class="btn btn-primary">تسویه حساب</a></div>
                     </div>
                 </div>
                 <!--Middle Part End -->

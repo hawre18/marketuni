@@ -70,6 +70,7 @@
                         </table>
                 </div>
                 <!-- /.table-responsive -->
+                    <div class="center-block text-center">{{ $comments->links() }}</div>
             </div>
             <!-- /.box-body -->
     </section>

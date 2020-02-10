@@ -48,6 +48,7 @@
                         </table>
                 </div>
                 <!-- /.table-responsive -->
+                    <div class="center-block text-center">{{ $attributes->links() }}</div>
             </div>
         </div>
             <!-- /.box-body -->

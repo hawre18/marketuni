@@ -1,30 +1,27 @@
 @extends('frontend.layout.master')
 @section('content')
-<div class="row center-block">
-    @if(Session::has('success'))
-        <div class="alert alert-danger">
-            <div>{{Session('success')}}</div>
-        </div>
-    @endif
-    <aside id="column-right" class="col-sm-3 hidden-xs">
-        <h3 class="subtitle">حساب کاربری</h3>
-        <div class="list-group">
-            <ul class="list-item">
-                <li><a href="login.html">ورود</a></li>
-                <li><a href="register.html">ثبت نام</a></li>
-                <li><a href="#">فراموشی رمز عبور</a></li>
-                <li><a href="#">حساب کاربری</a></li>
-                <li><a href="{{route('addresses.list')}}">لیست آدرس ها</a></li>
-                <li><a href="{{route('favorites.list')}}">لیست علاقه مندی</a></li>
-                <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
-                <li><a href="#">دانلود ها</a></li>
-                <li><a href="#">امتیازات خرید</a></li>
-                <li><a href="#">بازگشت</a></li>
-                <li><a href="#">تراکنش ها</a></li>
-                <li><a href="#">خبرنامه</a></li>
-                <li><a href="#">پرداخت های تکرار شونده</a></li>
-            </ul>
-        </div>
-    </aside>
-</div>
+    <div class="row center-block">
+        <aside id="column-right" class="col-sm-3 hidden-xs">
+            <h3 class="subtitle">حساب کاربری</h3>
+            <div class="list-group">
+                <ul class="list-item">
+                    <li><a href="{{route('addresses.index')}}">لیست آدرس ها</a></li>
+                    <li><a href="{{route('favorites.index')}}">لیست علاقه مندی</a></li>
+                    <li><a href="{{route('orders.index')}}">تاریخچه سفارشات</a></li>
+                    <li><a href="{{route('payments.index')}}">تراکنش ها</a></li>
+                </ul>
+            </div>
+        </aside>
+            <div id="content" class="col-sm-6">
+                <div class="header-row text-center">
+                    <h3>پروفایل کاربری</h3>
+                </div>
+                <div class="box box-info">
+                    <div class="box-body">
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+    </div>
 @endsection

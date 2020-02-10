@@ -13,7 +13,9 @@
                         <tr>
                             <th class="text-center">شناسه</th>
                             <th class="text-center">مبلغ</th>
-                            <th class="text-center">وضعیت</th>
+                            <th class="text-center">وضعیت پرداخت</th>
+                            <th class="text-center">وضعیت ارسال</th>
+                            <th class="text-center">عملیات ارسال</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,12 +28,20 @@
                                 @else
                                 <td class="text-center"><span class="label label-success">پرداخت شده</span> </td>
                                 @endif
+                                @if($order->sents==0)
+                                    <td class="text-center"><span class="label label-danger">ارسال نشده</span> </td>
+                                    <td class="text-center"><a class="btn btn-success" href="{{route('order.send',['id'=>$order->id])}}">ارسال کردن</a></td>
+                                @else
+                                    <td class="text-center"><span class="label label-success">ارسال شده</span> </td>
+                                    <td class="text-center"><a class="btn btn-success disabled" href="{{route('order.send',['id'=>$order->id])}}">ارسال کردن</a></td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
                 <!-- /.table-responsive -->
+                <div class="center-block text-center">{{ $orders->links() }}</div>
             </div>
             <!-- /.box-body -->
         </div>

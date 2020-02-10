@@ -10,29 +10,21 @@
         <h3 class="subtitle">حساب کاربری</h3>
         <div class="list-group">
             <ul class="list-item">
-                <li><a href="login.html">ورود</a></li>
-                <li><a href="register.html">ثبت نام</a></li>
-                <li><a href="#">فراموشی رمز عبور</a></li>
-                <li><a href="#">حساب کاربری</a></li>
-                <li><a href="#">لیست آدرس ها</a></li>
-                <li><a href="wishlist.html">لیست علاقه مندی</a></li>
-                <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
-                <li><a href="#">دانلود ها</a></li>
-                <li><a href="#">امتیازات خرید</a></li>
-                <li><a href="#">بازگشت</a></li>
-                <li><a href="#">تراکنش ها</a></li>
-                <li><a href="#">خبرنامه</a></li>
-                <li><a href="#">پرداخت های تکرار شونده</a></li>
+                <li><a href="{{route('addresses.index')}}">لیست آدرس ها</a></li>
+                <li><a href="{{route('favorites.index')}}">لیست علاقه مندی</a></li>
+                <li><a href="{{route('orders.index')}}">تاریخچه سفارشات</a></li>
+                <li><a href="{{route('payments.index')}}">تراکنش ها</a></li>
             </ul>
         </div>
     </aside>
     <div id="content" class="col-sm-9">
         <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title pull-right">لیست محصولات سفارش {{$order->id}}</h3>
-            </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <div class="header-row text-center">
+                    <h3>محصولات سفارش {{$order->id}}</h3>
+                    <hr/>
+                </div>
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
@@ -52,12 +44,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="customer-data">
-                        <p><strong>نام خریدار: </strong>{{$order->user->name . ' '.$order->user->last_name}}</p>
-                        <p><strong>آدرس خریدار: </strong>{{$order->province->name . ' '.$order->city->name . ' '.$order->addresstxt}}</p>
-                        <p><strong>کدپستی خریدار: </strong>{{$order->post_code}}</p>
-                        <p><strong>شماره موبایل خریدار: </strong>{{$order->user->phone}}</p>
-                    </div>
                 </div>
                 <!-- /.table-responsive -->
             </div>

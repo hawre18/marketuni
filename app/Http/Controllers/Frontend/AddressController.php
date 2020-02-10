@@ -19,7 +19,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses=Address::with(['city','province'])->where('user_id',Auth::user()->id)->get();
+        $addresses=Address::with(['city','province'])->where('user_id',Auth::user()->id)->paginate(10);
         return view('frontend.profile.address.index',compact(['addresses']));
     }
 

@@ -23,7 +23,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <form id="myForm" method="post" action="/administrator/brands">
+                        <form id="myForm" method="post" action="/admins/brands">
                             @csrf
                             <div class="form-group">
                                 <label for="title">نام</label>

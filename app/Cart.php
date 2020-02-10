@@ -11,6 +11,7 @@ class Cart
     public $totalPurePrice = 0;
     public $couponDiscount = 0;
     public $coupon = null;
+    public $shippingCost=10000;
 
     public function __construct($oldCart)
     {
@@ -39,6 +40,7 @@ class Cart
         if($item->discount_price){
             $storedItem['price'] = $item->discount_price * $storedItem['qty'];
             $this->totalPrice += $item->discount_price;
+            $this->totalPrice +=$this->shippingCost;
             $this->totalDiscountPrice += ($item->price - $item->discount_price);
         }else{
             $storedItem['price'] = $item->price * $storedItem['qty'];

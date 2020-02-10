@@ -50,6 +50,7 @@
                     </table>
                 </div>
                 <!-- /.table-responsive -->
+                    <div class="center-block text-center">{{ $brands->links() }}</div>
             </div>
         </div>
     </section>

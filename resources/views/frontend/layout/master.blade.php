@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/css/stylesheet-rtl.css" />
     <link rel="stylesheet" type="text/css" href="/css/responsive-rtl.css" />
     <link rel="stylesheet" type="text/css" href="/css/stylesheet-skin2.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <meta name="csrf-token" content="{{csrf_token()}}">
 
     <!-- CSS Part End-->
@@ -114,6 +116,10 @@
                                                 <td class="text-right">{{Session::get('cart')->totalDiscountPrice}} تومان</td>
                                             </tr>
                                             <tr>
+                                                <td class="text-right"><strong>هزینه ارسال</strong></td>
+                                                <td class="text-right">{{Session::get('cart')->shippingCost}} تومان</td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-right"><strong>قابل پرداخت</strong></td>
                                                 <td class="text-right">{{Session::get('cart')->totalPrice}} تومان</td>
                                             </tr>
@@ -130,10 +136,11 @@
                     </div>
                     <!-- Mini Cart End-->
                     <!-- جستجو Start-->
-                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" >
-                        <div id="search" class="input-group" >
-                            <input id="filter_name" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" style="background-color: #ffffff;color: #000000;" />
-                            <button type="button" class="button-search"><i class="fa fa-search"></i></button>
+                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" style="z-index: 1000;">
+                        <div class="input-group" >
+                            <input id="search" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" style="background-color: #ffffff;color: #000000;" />
+                            <div id="searcher"></div>
+                            {{csrf_field()}}
                         </div>
                     </div>
                     <!-- جستجو End-->
@@ -206,7 +213,7 @@
                         @if(Auth::check())
                             <ul>
                                 <li><a href="{{route('user.profile')}}">حساب کاربری</a></li>
-                                <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
+                                <li><a href="{{route('orders.index')}}">تاریخچه سفارشات</a></li>
                                 <li><a href="contact-us.html">تماس با ما</a></li>
 
                             </ul>
@@ -250,6 +257,31 @@
     </footer>
     <!--Footer End-->
 </div>
+<script>
+    $(document).ready(function () {
+
+        $('#search').keyup(function () {
+            var query=$('#search').val();
+            if(query !=''){
+                var _token=$('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{route('search.fetch')}}",
+                    method:"POST",
+                    data:{
+                        query:query,
+                        _token:_token},
+                    beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
+                    success:function(data){
+                        $('#searcher').fadeIn();
+                        $('#searcher').html(data);
+                    }
+                })
+            }
+
+        });
+
+    });
+</script>
 @yield('script-vuejs')
 <!-- JS Part Start-->
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>

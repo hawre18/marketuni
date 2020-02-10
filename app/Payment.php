@@ -12,7 +12,7 @@ class Payment extends Model
     private  $CallbackURL;
     public function __construct($amount,$orderId=null)
     {
-        $this->MerchantID = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'; //Required
+        $this->MerchantID = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'; //Required
         $this->Amount =$amount; //Amount will be based on Toman - Required
         $this->Description = 'توضیحات تراکنش تستی'; // Required
         $this->CallbackURL = 'http://localhost:8000/payment-verify/'.$orderId; // Required
@@ -20,6 +20,7 @@ class Payment extends Model
 
     public function doPayment()
     {
+
         $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
 
         $result = $client->PaymentRequest(

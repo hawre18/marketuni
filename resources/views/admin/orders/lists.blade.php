@@ -27,10 +27,10 @@
                         </tbody>
                     </table>
                     <div class="customer-data">
-                        <p><strong>نام خریدار: </strong>{{$order->user->name . ' '.$order->user->last_name}}</p>
-                        <p><strong>آدرس خریدار: </strong>{{$order->province->name . ' '.$order->city->name . ' '.$order->addresstxt}}</p>
-                        <p><strong>کدپستی خریدار: </strong>{{$order->post_code}}</p>
-                        <p><strong>شماره موبایل خریدار: </strong>{{$order->user->phone}}</p>
+                        <p><strong>نام خریدار: </strong>{{$order->user['name'] . ' '.$order->user['last_name']}}</p>
+                        <p><strong>آدرس خریدار: </strong>{{$order->address->province->name . ' '.$order->address->city->name . ' '.$order->address->address}}</p>
+                        <p><strong>کدپستی خریدار: </strong>{{$order->address->post_code}}</p>
+                        <p><strong>شماره موبایل خریدار: </strong>{{$order->address->phone}}</p>
                     </div>
                 </div>
                 <!-- /.table-responsive -->

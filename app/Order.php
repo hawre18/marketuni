@@ -14,6 +14,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
     public function province()
     {
         return $this->belongsTo(Province::class);

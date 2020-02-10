@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class OrderController extends Controller
+class ProvinceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::paginate(20);
-        return view('admin.orders.index',compact(['orders']));
-    }
-
-    public function getOrderLists($id)
-    {
-        $order=Order::with('user','city','province','products.photos','address')->whereId($id)->first();
-        return view('admin.orders.lists',compact(['order']));
-    }
-
-    public function send($id)
-    {
-        DB::table('orders')
-            ->where('id', $id)
-            ->update(array('sents' => 1));
-        return redirect('/admins/orders');
-
+        //
     }
 
     /**

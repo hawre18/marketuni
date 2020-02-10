@@ -5,19 +5,10 @@
             <h3 class="subtitle">حساب کاربری</h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a href="login.html">ورود</a></li>
-                    <li><a href="register.html">ثبت نام</a></li>
-                    <li><a href="#">فراموشی رمز عبور</a></li>
-                    <li><a href="#">حساب کاربری</a></li>
-                    <li><a href="#">لیست آدرس ها</a></li>
-                    <li><a href="{{route('favorites.list')}}">لیست علاقه مندی</a></li>
-                    <li><a href="{{route('profile.orders')}}">تاریخچه سفارشات</a></li>
-                    <li><a href="#">دانلود ها</a></li>
-                    <li><a href="#">امتیازات خرید</a></li>
-                    <li><a href="#">بازگشت</a></li>
-                    <li><a href="#">تراکنش ها</a></li>
-                    <li><a href="#">خبرنامه</a></li>
-                    <li><a href="#">پرداخت های تکرار شونده</a></li>
+                    <li><a href="{{route('addresses.index')}}">لیست آدرس ها</a></li>
+                    <li><a href="{{route('favorites.index')}}">لیست علاقه مندی</a></li>
+                    <li><a href="{{route('orders.index')}}">تاریخچه سفارشات</a></li>
+                    <li><a href="{{route('payments.index')}}">تراکنش ها</a></li>
                 </ul>
             </div>
         </aside>
@@ -71,6 +62,7 @@
                             </table>
                         </div>
                         <!-- /.table-responsive -->
+                        <div class="center-block text-center">{{ $addresses->links() }}</div>
                     </div>
                     <div>
                         <a href="{{route('address.create')}}" class="btn btn-primary col-md-12 center-block">ایجاد آدرس جدید</a>

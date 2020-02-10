@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
@@ -79,7 +80,8 @@ class ProductController extends Controller
         $newProduct->short_description=$request->short_description;
         $newProduct->long_description=$request->long_description;
         $newProduct->brand_id=$request->brand;
-        $newProduct->user_id=1;
+        $newProduct->user_id=Auth::user()->id;
+        $newProduct->count_sells=0;
         $newProduct->save();
         $attributes=explode(',',$request->input('attributes')[0]);
         $photos=explode(',',$request->input('photo_id')[0]);
@@ -143,6 +145,7 @@ class ProductController extends Controller
 
         try{
         $product=Product::findorfail($id);
+        $count=$product->count_sells;
         $product->title=$request->title;
         $product->sku=$this->generateSKU();
         $product->slug=$request->slug;
@@ -155,7 +158,8 @@ class ProductController extends Controller
         $product->meta_desc=$request->meta_desc;
         $product->meta_keywords=$request->meta_keywords;
         $product->brand_id=$request->brand;
-        $product->user_id=1;
+        $product->user_id=Auth::user()->id;
+        $product->count_sells=$count;
         $product->save();
         $attributes=explode(',',$request->input('attributes')[0]);
         $photos=explode(',',$request->input('photo_id')[0]);

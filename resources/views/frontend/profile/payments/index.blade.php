@@ -24,19 +24,22 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">شناسه</th>
-                                    <th class="text-center">نام محصول</th>
-                                    <th class="text-center">عملیات</th>
+                                    <th class="text-center">سفارش</th>
+                                    <th class="text-center">تاریخ پرداخت</th>
+                                    <th class="text-center">وضعیت</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($favorites as $favorite)
+                                @foreach($payments as $payment)
                                     <tr>
                                         <td class="text-center">{{$loop->index+1}}</td>
-                                        <td class="text-center">{{$favorite->product->title}}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-warning" href="{{route('address.edit', $address->id)}}">ویرایش</a>
-                                            <a type="submit" class="btn btn-danger" href="{{route('address.delete', $address->id)}}">حذف</a>
-                                        </td>
+                                        <td class="text-center">{{$payment->order_id}}</td>
+                                        <td class="text-center">{{$payment->created_at}}</td>
+                                        @if($payment->status=='OK')
+                                            <td class="text-center label label-success">موفق</td>
+                                        @else
+                                            <td class="text-center label label-danger">ناموفق</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

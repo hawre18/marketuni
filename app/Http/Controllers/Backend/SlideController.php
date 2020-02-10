@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class SlideController extends Controller
@@ -16,7 +17,7 @@ class SlideController extends Controller
      */
     public function index()
     {
-        $slides=Slide::with('photos')->get();
+        $slides=Slide::with('photos')->paginate(5);
         return view('admin.slides.index',compact(['slides']));
     }
 
@@ -132,6 +133,29 @@ class SlideController extends Controller
         }
         catch (\Exception $m){
             Session::flash('slide_error','خطایی در حذف اسلاید به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/slides');
+        }
+    }
+
+    public function publish($id,$status)
+    {
+        try{
+            if($status==1) {
+                DB::table('slides')
+                    ->where('id', $id)
+                    ->update(array('status' => 1));
+                Session::flash('one_status', 'اسلاید با موفقیت منتشر شد');
+                return redirect('/admins/slides');
+            }elseif ($status==0) {
+                DB::table('slides')
+                    ->where('id', $id)
+                    ->update(array('status' => 0));
+                Session::flash('zero_status', 'اسلاید با موفقیت منقضی شد');
+                return redirect('/admins/slides');
+                }
+        }
+        catch (\Exception $m){
+            Session::flash('status_error','خطایی در انجام عملیات روی  اسلاید به وجود آمده لطفا مجددا تلاش کنید');
             return redirect('/admins/slides');
         }
     }

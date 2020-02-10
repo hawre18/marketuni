@@ -56,6 +56,7 @@
                         </table>
                 </div>
                 <!-- /.table-responsive -->
+                    <div class="center-block text-center">{{ $coupons->links() }}</div>
             </div>
             <!-- /.box-body -->
         </div>
