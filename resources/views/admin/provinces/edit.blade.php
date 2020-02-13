@@ -4,7 +4,7 @@
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">ایجاد شهر جدید</h3>
+                <h3 class="box-title pull-right">ویرایش استان {{$province->name}}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -19,21 +19,15 @@
                                 </ul>
                             </div>
                         @endif
-                        <form id="myForm" method="post" action="/admins/cities">
-                            @csrf
-                            <div class="form-group">
-                                <label for="name">شهر</label>
-                                <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="نام شهر را وارد کنید...">
-                            </div>
-                            <div class="form-group">
-                                <label for="province">استان</label>
-                                <select name="province_id" class="form-control" >
-                                    @foreach($provinces as $province)
-                                        <option value="{{$province->id}}")>{{$province->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
+                        <form method="post" action="/admins/province/{{$province->id}}">
+                            @csrf
+                            <input type="hidden" name="_method" value="PATCH">
+
+                            <div class="form-group">
+                                <label for="name">استان</label>
+                                <input type="text" name="name" class="form-control" value="{{$province->name}}" placeholder="نام استان را وارد کنید...">
+                            </div>
                             <button type="submit" class="btn btn-success pull-left">ذخیره</button>
                         </form>
                     </div>
@@ -44,4 +38,3 @@
     </section>
 
 @endsection
-

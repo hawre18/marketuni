@@ -16,24 +16,29 @@
                             <th class="text-center">وضعیت پرداخت</th>
                             <th class="text-center">وضعیت ارسال</th>
                             <th class="text-center">عملیات ارسال</th>
+                            <th class="text-center">عملیات پرداخت</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($orders as $order)
                             <tr>
-                                <td class="text-center"><a href="{{route('orders.lists',['id'=>$order->id])}}">{{$order->id}}</a></td>
+                                <td class="text-center"><a href="{{route('orders.lists',['id'=>$order->id])}}">{{$loop->index+1}}</a></td>
                                 <td class="text-center">{{$order->amount}}</td>
-                                @if($order->status==0)
-                                <td class="text-center"><span class="label label-danger">پرداخت نشده</span> </td>
-                                @else
-                                <td class="text-center"><span class="label label-success">پرداخت شده</span> </td>
-                                @endif
-                                @if($order->sents==0)
+                                @if($order->sents==0&&$order->status==1)
+                                    <td class="text-center"><span class="label label-success">پرداخت شده</span></td>
                                     <td class="text-center"><span class="label label-danger">ارسال نشده</span> </td>
                                     <td class="text-center"><a class="btn btn-success" href="{{route('order.send',['id'=>$order->id])}}">ارسال کردن</a></td>
-                                @else
+                                    <td class="text-center"><a class="btn btn-success disabled" href="{{route('order.pay',['id'=>$order->id])}}">پرداخت کردن</a></td>
+                                @elseif($order->sents==1&&$order->status==1)
+                                    <td class="text-center"><span class="label label-success">پرداخت شده</span></td>
                                     <td class="text-center"><span class="label label-success">ارسال شده</span> </td>
                                     <td class="text-center"><a class="btn btn-success disabled" href="{{route('order.send',['id'=>$order->id])}}">ارسال کردن</a></td>
+                                    <td class="text-center"><a class="btn btn-success disabled" href="{{route('order.pay',['id'=>$order->id])}}">پرداخت کردن</a></td>
+                                @elseif($order->sents==0&&$order->status==0)
+                                    <td class="text-center"><span class="label label-danger">پرداخت نشده</span></td>
+                                    <td class="text-center"><span class="label label-danger">ارسال نشده</span></td>
+                                    <td class="text-center"><a class="btn btn-success disabled" href="{{route('order.send',['id'=>$order->id])}}">ارسال کردن</a></td>
+                                    <td class="text-center"><a class="btn btn-success" href="{{route('order.pay',['id'=>$order->id])}}">پرداخت کردن</a></td>
                                 @endif
                             </tr>
                         @endforeach

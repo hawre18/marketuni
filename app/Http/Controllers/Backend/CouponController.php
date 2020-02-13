@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Coupon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CouponController extends Controller
@@ -16,7 +17,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $coupons=Coupon::all();
+        $coupons=Coupon::paginate(10);
         return view('admin.coupons.index',compact(['coupons']));
     }
 
@@ -59,8 +60,28 @@ class CouponController extends Controller
         }
     }
 
-
-    /**
+    public function action($id,$status)
+    {
+        try{
+            if($status==1) {
+                DB::table('coupons')
+                    ->where('id', $id)
+                    ->update(array('status' => 1));
+                Session::flash('one_status', 'کوپن با موفقیت منتشر شد');
+                return redirect()->back();
+            }elseif ($status==0) {
+                DB::table('coupons')
+                    ->where('id', $id)
+                    ->update(array('status' => 0));
+                Session::flash('zero_status', 'کوپن با موفقیت منقضی شد');
+                return redirect()->back();
+            }
+        }
+        catch (\Exception $m){
+            Session::flash('status_error','خطایی در انجام عملیات روی  کوپن به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect()->back();
+        }
+    }    /**
      * Display the specified resource.
      *
      * @param int $id

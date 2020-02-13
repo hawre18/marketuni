@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function getProduct($id)
     {
         $product=Product::with(['photos','attributeValues.attributeGroup','brand','categories'])->whereId($id)->first();
-        $commentsProduct=Comment::with('user')->whereProduct_id($product->id)->orderBy('created_at','desc')
+        $commentsProduct=Comment::with('user')->whereProduct_id($id)->orderBy('created_at','desc')
             ->whereStatus('1')->get();
         $relatedProducts=Product::with('categories')->whereHas('categories',function ($q)use($product){
             $q->whereIn('id',$product->categories);

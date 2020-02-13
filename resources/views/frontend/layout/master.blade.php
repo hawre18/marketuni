@@ -17,14 +17,16 @@
     <link rel="stylesheet" type="text/css" href="/css/stylesheet-rtl.css" />
     <link rel="stylesheet" type="text/css" href="/css/responsive-rtl.css" />
     <link rel="stylesheet" type="text/css" href="/css/stylesheet-skin2.css" />
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
     <meta name="csrf-token" content="{{csrf_token()}}">
 
     <!-- CSS Part End-->
 </head>
 <body>
-<div class="wrapper-wide" style="background-color: #edf7fa;">
+<div id="app" class="wrapper-wide" style="background-color: #edf7fa;">
     <div id="header" >
         <!-- Top Bar Start-->
         <nav id="top" class="htop" style="background-color: #edf7fa;">
@@ -137,11 +139,7 @@
                     <!-- Mini Cart End-->
                     <!-- جستجو Start-->
                     <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" style="z-index: 1000;">
-                        <div class="input-group" >
-                            <input id="search" type="text" name="search" value="" placeholder="جستجو" class="form-control input-lg" style="background-color: #ffffff;color: #000000;" />
-                            <div id="searcher"></div>
-                            {{csrf_field()}}
-                        </div>
+                        <search-products></search-products>
                     </div>
                     <!-- جستجو End-->
                 </div>
@@ -257,32 +255,8 @@
     </footer>
     <!--Footer End-->
 </div>
-<script>
-    $(document).ready(function () {
+<script src="{{asset('admin/js/app.js')}}"></script>
 
-        $('#search').keyup(function () {
-            var query=$('#search').val();
-            if(query !=''){
-                var _token=$('input[name="_token"]').val();
-                $.ajax({
-                    url:"{{route('search.fetch')}}",
-                    method:"POST",
-                    data:{
-                        query:query,
-                        _token:_token},
-                    beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
-                    success:function(data){
-                        $('#searcher').fadeIn();
-                        $('#searcher').html(data);
-                    }
-                })
-            }
-
-        });
-
-    });
-</script>
-@yield('script-vuejs')
 <!-- JS Part Start-->
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
@@ -297,6 +271,7 @@
 <script src="https://unpkg.com/vue-swal"></script>
 <script type="text/javascript" src="/js/star-rating.min.js"></script>
 @yield('script')
+
 <!-- JS Part End-->
 </body>
 </html>

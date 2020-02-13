@@ -1,30 +1,12 @@
-@extends('frontend.layout.master')
+@extends('admin.layout.master')
 @section('content')
-<div class="row center-block">
-    @if(Session::has('success'))
-        <div class="alert alert-danger">
-            <div>{{Session('success')}}</div>
-        </div>
-    @endif
-    <aside id="column-right" class="col-sm-3 hidden-xs">
-        <h3 class="subtitle">حساب کاربری</h3>
-        <div class="list-group">
-            <ul class="list-item">
-                <li><a href="{{route('addresses.index')}}">لیست آدرس ها</a></li>
-                <li><a href="{{route('favorites.index')}}">لیست علاقه مندی</a></li>
-                <li><a href="{{route('orders.userindex')}}">تاریخچه سفارشات</a></li>
-                <li><a href="{{route('payments.index')}}">تراکنش ها</a></li>
-            </ul>
-        </div>
-    </aside>
-    <div id="content" class="col-sm-9">
+    <section class="content" style="direction: rtl">
         <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title pull-right">لیست محصولات سفارش {{$order->id}}</h3>
+            </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="header-row text-center">
-                    <h3>محصولات سفارش {{$order->id}}</h3>
-                    <hr/>
-                </div>
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
@@ -44,11 +26,16 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="customer-data">
+                        <p><strong>نام خریدار: </strong>{{$order->user['name'] . ' '.$order->user['last_name']}}</p>
+                        <p><strong>آدرس خریدار: </strong>{{$order->address->province->name . ' '.$order->address->city->name . ' '.$order->address->address}}</p>
+                        <p><strong>کدپستی خریدار: </strong>{{$order->address->post_code}}</p>
+                        <p><strong>شماره موبایل خریدار: </strong>{{$order->address->phone}}</p>
+                    </div>
                 </div>
                 <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
         </div>
-    </div>
-</div>
+    </section>
 @endsection

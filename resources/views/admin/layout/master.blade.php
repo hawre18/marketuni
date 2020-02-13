@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    @if(Auth::guard('admin')->check())
+        <title>داشبورد کاربر: {{Auth::guard('admin')->user()->name}}</title>
+    @else
+        <title>ورود به پنل ادمین</title>
+    @endif
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -78,7 +82,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">پروفایل</a>
+                                    <a href="{{url('/')}}" class="btn btn-default btn-flat">پروفایل</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{route('admin.logout')}}" class="btn btn-default btn-flat">خروج</a>
@@ -106,7 +110,7 @@
                 </div>
                 <div class="pull-right info">
                     <p>مدیریت فروشگاه ساکا</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    <a href="#"><i class="fa fa-circle text-success"></i>آنلاین</a>
                 </div>
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -189,6 +193,16 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('comments.index')}}"><i class="fa fa-circle-o"></i>لیست کامنت ها</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>استان ها</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('province.index')}}"><i class="fa fa-circle-o"></i>لیست استان ها</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

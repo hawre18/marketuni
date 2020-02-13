@@ -54,6 +54,8 @@ Route::prefix('admins')->group(function (){
    Route::get('brands.delete/{id}','Backend\BrandController@delete')->name('brands.delete');
    Route::resource('brands','Backend\BrandController');
    Route::get('cities.delete/{id}','Backend\CityController@delete')->name('cities.delete');
+   Route::resource('province','Backend\ProvinceController');
+   Route::get('province.delete/{id}','Backend\ProvinceController@delete')->name('province.delete');
    Route::resource('cities','Backend\CityController');
    Route::post('photos/upload','Backend\PhotoController@upload')->name('photos.upload');
    Route::resource('photos','Backend\PhotoController');
@@ -61,10 +63,15 @@ Route::prefix('admins')->group(function (){
    Route::resource('products','Backend\ProductController');
    Route::get('coupons.delete/{id}','Backend\CouponController@delete')->name('coupons.delete');
    Route::resource('coupons','Backend\CouponController');
+   Route::get('coupons/action/{id}/{status}','Backend\CouponController@action')->name('coupon.action');
    Route::get('slides.delete/{id}','Backend\SlideController@delete')->name('slides.delete');
    Route::get('slides/publish/{id}/{status}','Backend\SlideController@publish')->name('slides.publish');
    Route::resource('slides','Backend\SlideController');
    Route::resource('orders','Backend\OrderController');
+   Route::get('neworders','Backend\OrderController@newOrders')->name('orders.new');
+   Route::get('unpaidorders','Backend\OrderController@unpaidOrders')->name('orders.unpaid');
+   Route::get('newusers','Backend\UserController@newUsersIndex')->name('new.users');
+   Route::get('order/pay/{id}','Backend\OrderController@orderPay')->name('order.pay');
    Route::get('orders/lists/{id}','Backend\OrderController@getOrderLists')->name('orders.lists');
    Route::get('orders/send/{id}','Backend\OrderController@send')->name('order.send');
    Route::get('comments','Backend\CommentController@index')->name('comments.index');
@@ -82,7 +89,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('orders','Frontend\OrderController@index')->name('profile.orders');
     Route::get('orders/lists/{id}','Frontend\OrderController@getOrderLists')->name('profile.orders.lists');
     Route::get('comment/store/{productId}/{userId}','Frontend\CommentController@store')->name('comment.store');
-    Route::get('orders','Frontend\OrderController@index')->name('orders.index');
+    Route::get('orders','Frontend\OrderController@index')->name('orders.userindex');
     Route::get('orders/products/{id}','Frontend\OrderController@getOrderLists')->name('orders.products');
     Route::get('favorites','Frontend\FavoriteController@index')->name('favorites.index');
     Route::get('payments/lists','Frontend\PaymentController@index')->name('payments.index');
@@ -95,6 +102,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');
 });
 Route::resource('/','Frontend\HomeController');
+Route::post('/autocomplete/fetch','Frontend\SearchController@fetch')->name('autocomplete.fetch');
 Route::get('verification','Auth\VerificationController@verify')->name('verification.verify');
 Route::get('/add-to-cart/{id}','Frontend\CartController@addToCart')->name('cart.add');
 Route::post('/remove-to-cart/{id}','Frontend\CartController@removeItem')->name('cart.remove');

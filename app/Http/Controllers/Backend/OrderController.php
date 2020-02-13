@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::paginate(20);
+        $orders=Order::orderby('updated_at','desc')->paginate(20);
         return view('admin.orders.index',compact(['orders']));
     }
 
@@ -31,10 +31,28 @@ class OrderController extends Controller
         DB::table('orders')
             ->where('id', $id)
             ->update(array('sents' => 1));
-        return redirect('/admins/orders');
+        return redirect()->back();
 
     }
 
+    public function newOrder()
+    {
+        $orders=Order::where('sents',0)->orderby('created_at','asc')->paginate(10);
+        return view('admin.orders.index',compact(['orders']));
+    }
+    public function orderPay($id)
+    {
+        DB::table('orders')
+            ->where('id', $id)
+            ->update(array('status' => 1));
+        return redirect()->back();
+    }
+
+    public function unpaidOrders()
+    {
+        $orders=Order::where('status',0)->orderby('created_at','asc')->paginate(10);
+        return view('admin.orders.index',compact(['orders']));
+    }
     /**
      * Show the form for creating a new resource.
      *

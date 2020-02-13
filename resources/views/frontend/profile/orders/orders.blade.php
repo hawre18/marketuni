@@ -12,7 +12,7 @@
             <ul class="list-item">
                 <li><a href="{{route('addresses.index')}}">لیست آدرس ها</a></li>
                 <li><a href="{{route('favorites.index')}}">لیست علاقه مندی</a></li>
-                <li><a href="{{route('orders.index')}}">تاریخچه سفارشات</a></li>
+                <li><a href="{{route('orders.userindex')}}">تاریخچه سفارشات</a></li>
                 <li><a href="{{route('payments.list')}}">تراکنش ها</a></li>
             </ul>
         </div>

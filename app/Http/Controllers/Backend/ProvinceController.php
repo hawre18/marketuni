@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProvinceController extends Controller
 {
@@ -14,7 +16,8 @@ class ProvinceController extends Controller
      */
     public function index()
     {
-        //
+        $provinces=Province::paginate(10);
+        return view('admin.provinces.index',compact('provinces'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.provinces.create');
     }
 
     /**
@@ -35,7 +38,20 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|unique:province|min:3|max:255',
+        ]);
+        try{
+            $province=new Province();
+            $province->name=$request->input('name');
+            $province->save();
+            Session::flash('province_success','استان با موفقیت ثبت شد');
+            return redirect('/admins/province');
+        }
+        catch (\Exception $m){
+            Session::flash('province_error','خطایی در ثبت به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/province');
+        }
     }
 
     /**
@@ -57,7 +73,8 @@ class ProvinceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $province=Province::findorfail($id)->first();
+        return view('admin.provinces.edit',compact('province'));
     }
 
     /**
@@ -69,7 +86,34 @@ class ProvinceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|unique:provinces,name,' . $id .'|min:3|max:255',
+        ]);
+        try{
+            $province=Province::findorfail($id);
+            $province->name=$request->input('name');
+            $province->save();
+            Session::flash('province_success','استان با موفقیت ویرایش شد');
+            return redirect('/admins/province');
+        }
+        catch (\Exception $m){
+            Session::flash('province_error','خطایی در ویرایش به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/province');
+        }
+    }
+    public function delete($id)
+    {
+        try{
+            $province=Province::findorfail($id);
+            $province->delete();
+            Session::flash('province_success','استان با موفقیت حذف شد');
+            return redirect('/admins/province');
+        }
+        catch (\Exception $m) {
+            Session::flash('province_error', 'خطایی در حذف به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect('/admins/province');
+        }
+
     }
 
     /**

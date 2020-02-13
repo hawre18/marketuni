@@ -51,9 +51,9 @@
                                     <td width="10%" class="text-center">{{ $loop->index + 1 }}</td>
                                     <td width="20%" class="text-center">{{$slide->title}}</td>
                                     @if($slide->status==0)
-                                        <td width="15%" class="text-center">منتشر نشده</td>
+                                        <td width="15%" class="text-center"><span class="label label-danger">منتشر نشده</span></td>
                                     @else
-                                        <td width="15%" class="text-center">منتشر شده</td>
+                                        <td width="15%" class="text-center"><span class="label label-success">منتشر شده</span></td>
                                     @endif
                                     @foreach($slide->photos as $photo)
                                     <td width="20%" class="text-center img-circle"><img class="center-block img-responsive" width="20%" height="8%" src="{{$photo->path}}"></td>

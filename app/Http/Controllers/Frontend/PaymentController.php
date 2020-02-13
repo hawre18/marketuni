@@ -22,7 +22,7 @@ class PaymentController extends Controller
         if ($result){
             DB::table('orders')
                 ->where('id', $id)
-                ->update(array('status' => 1));
+                ->update(array('status' => 1,'sents'=>0));
             foreach ($cart->items as $product) {
                 $products=Product::where('id',$product['item']->id)
                     ->update([

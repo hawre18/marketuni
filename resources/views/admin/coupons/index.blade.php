@@ -31,6 +31,7 @@
                                 <th class="text-center">کد تخفیف</th>
                                 <th class="text-center">مقدار تخفیف</th>
                                 <th class="text-center">وضعیت</th>
+                                <th class="text-center">تغییر وضعیت</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
                             </thead>
@@ -42,14 +43,16 @@
                                     <td class="text-center">{{$coupon->code}}</td>
                                     <td class="text-center">{{$coupon->price}}</td>
                                     @if($coupon->status==0)
-                                        <td class="text-center">غیر فعال</td>
+                                        <td class="text-center"><span class="label label-danger">غیرفعال</span></td>
+                                        <td class="text-center"><a class="btn btn-success" href="{{route('coupon.action',[$coupon->id,$status=1])}}">فعال کردن</a></td>
                                     @else
-                                        <td class="text-center">فعال</td>
-                                @endif
-                                    <td class="text-center">
-                                        <a class="btn btn-warning" href="{{route('coupons.edit',$coupon->id)}}">ویرایش</a>
-                                        <a class="btn btn-danger" href="{{route('coupons.delete',$coupon->id)}}">حذف</a>
-                                    </td>
+                                        <td class="text-center"><span class="label label-success">فعال</span></td>
+                                       <td class="text-center"><a class="btn btn-danger" href="{{route('coupon.action',[$coupon->id,$status=0])}}">غیرفعال کردن</a></td>
+                                    @endif
+                                        <td class="text-center">
+                                         <a class="btn btn-warning" href="{{route('coupons.edit',$coupon->id)}}">ویرایش</a>
+                                         <a class="btn btn-danger" href="{{route('coupons.delete',$coupon->id)}}">حذف</a>
+                                        </td>
                                 </tr>
                                 @endforeach
                             </tbody>

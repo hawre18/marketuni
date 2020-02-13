@@ -31,6 +31,7 @@ Vue.component('attribute-component', require('./components/AttributeComponent').
 Vue.component('select-city-component', require('./components/SelectCityComponent').default)
 Vue.component('product-component', require('./components/ProductComponent').default)
 Vue.component('rating-component', require('./components/RatingComponent').default)
+Vue.component('search-products', require('./components/SearchProductsComponent').default)
 Vue.component('star-rating',StarRating)
 Vue.component('paginate',Paginate)
 
