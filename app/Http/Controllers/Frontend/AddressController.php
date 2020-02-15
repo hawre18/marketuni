@@ -75,6 +75,11 @@ class AddressController extends Controller
         }
     }
 
+    public function contactme()
+    {
+        return view('frontend.contact.contact-us');
+    }
+
     /**
      * Display the specified resource.
      *

@@ -4,8 +4,8 @@
         <div class="container">
             <!-- Breadcrumb Start-->
             <ul class="breadcrumb">
-                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-                <li><a href="cart.html">سبد خرید</a></li>
+                <li><a href="{{href('/')}}"><i class="fa fa-home"></i></a></li>
+                <li><a href="#">سبد خرید</a></li>
             </ul>
             <!-- Breadcrumb End-->
             <div class="row">
@@ -16,6 +16,14 @@
                 @elseif(Session::has('coupon_expired'))
                     <div class="alert alert-danger">
                         <div>{{Session('coupon_expired')}}</div>
+                    </div>
+                @elseif(Session::has('coupon_error'))
+                    <div class="alert alert-danger">
+                        <div>{{Session('coupon_error')}}</div>
+                    </div>
+                @elseif(Session::has('verify_error'))
+                    <div class="alert alert-danger">
+                        <div>{{Session('verify_error')}}</div>
                     </div>
                 @endif
                 <!--Middle Part Start-->

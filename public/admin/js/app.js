@@ -39105,7 +39105,8 @@ var render = function() {
                     expression: "sort"
                   }
                 ],
-                staticClass: "form-control col-sm-3",
+                staticClass: "form-control",
+                attrs: { id: "sel" },
                 on: {
                   change: [
                     function($event) {
@@ -39366,7 +39367,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-2 text-right" }, [
-      _c("label", { staticClass: "control-label" }, [_vm._v("مرتب سازی :")])
+      _c("label", { staticClass: "control-label", attrs: { for: "sel" } }, [
+        _vm._v("مرتب سازی :")
+      ])
     ])
   },
   function() {

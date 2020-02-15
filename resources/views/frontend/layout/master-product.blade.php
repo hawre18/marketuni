@@ -26,7 +26,7 @@
     <!-- CSS Part End-->
 </head>
 <body>
-<div id="app" class="wrapper-wide" style="background-color: #edf7fa;">
+<div class="wrapper-wide" style="background-color: #edf7fa;">
     <div id="header" >
         <!-- Top Bar Start-->
         <nav id="top" class="htop" style="background-color: #edf7fa;">
@@ -138,7 +138,7 @@
                     </div>
                     <!-- Mini Cart End-->
                     <!-- جستجو Start-->
-                    <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" style="z-index: 1000;">
+                    <div id="app" class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12 inner" style="z-index: 1000;">
                         <search-products></search-products>
                     </div>
                     <!-- جستجو End-->

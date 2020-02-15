@@ -4,7 +4,7 @@
     <section class="content" style="direction: rtl">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">کامنت ها</h3>
+                <h3 class="box-title pull-right">جزئیات کامنت</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -12,9 +12,9 @@
                         <table class="table no-margin">
                                     <lable for="description">متن نظر: </lable></br>
                                     <textarea id="description">{{$comment->description}}</textarea></br>
-                                    <lable>کاربر: {{$comment->user->name.' '.$comment->user->last_name}}</lable></br>
+                                    <lable>کاربر: {{$comment->user['name'].' '.$comment->user['last_name']}}</lable></br>
                                     <lable>تاریخ ایجاد: {{\Hekmatinasser\Verta\Verta::instance($comment->created_at)->formatDifference(\Hekmatinasser\Verta\Verta::today('Asia/Tehran'))}}</lable></br>
-                                    <lable>عنوان محصول: {{$comment->product->title. ' '. 'با کد'.$comment->product->sku}}</lable></br>
+                                    <lable>عنوان محصول: {{$comment->product['title']. ' '. 'با کد'.$comment->product['sku']}}</lable></br>
                                     @if($comment->status==0)
                                     <lable>وضعیت: تایید نشده</lable>
                                     @else

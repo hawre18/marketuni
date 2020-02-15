@@ -104,6 +104,7 @@ Route::group(['middleware'=>'auth'],function (){
 Route::resource('/','Frontend\HomeController');
 Route::post('/autocomplete/fetch','Frontend\SearchController@fetch')->name('autocomplete.fetch');
 Route::get('verification','Auth\VerificationController@verify')->name('verification.verify');
+Route::get('contactme','Frontend\AddressController@contactme')->name('contact.me');
 Route::get('/add-to-cart/{id}','Frontend\CartController@addToCart')->name('cart.add');
 Route::post('/remove-to-cart/{id}','Frontend\CartController@removeItem')->name('cart.remove');
 Route::post('/search/fetch','Frontend\LiveSearchController@fetch')->name('search.fetch');

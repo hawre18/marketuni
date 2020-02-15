@@ -14,7 +14,7 @@
         </aside>
             <div id="content" class="col-sm-6">
                 <div class="header-row text-center">
-                    <h3>آدرس ها</h3>
+                    <h3>تراکنش ها</h3>
                     <hr/>
                 </div>
                 <div class="box box-info">

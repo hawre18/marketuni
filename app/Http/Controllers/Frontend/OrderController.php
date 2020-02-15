@@ -15,6 +15,10 @@ class OrderController extends Controller
 {
     public function verify(Request $request)
     {
+        $validatedData = $request->validate([
+            'address' => 'required',
+        ]);
+        try{
         $cart = Session::has('cart') ? Session::get('cart') : null;
         if (!$cart) {
             Session::flash('warning', 'سبد خرید شما خالی است');
@@ -38,9 +42,13 @@ class OrderController extends Controller
                     return redirect()->to('https://sandbox.zarinpal.com/pg/StartPay/'.$result->Authority);
                 }
                 else {
-                    echo'ERR: '.$result->Status;
+                    Session::flash('verify_error','عملیات پرداخت ممکن نیست');
                 }
             }
+        } catch (\Exception $m){
+            Session::flash('verify_error','خطایی در ثبت سفارش به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect()->back();
+        }
     }
     public function index()
     {

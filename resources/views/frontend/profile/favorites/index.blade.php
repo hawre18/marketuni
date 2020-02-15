@@ -25,18 +25,13 @@
                                 <tr>
                                     <th class="text-center">شناسه</th>
                                     <th class="text-center">نام محصول</th>
-                                    <th class="text-center">عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($favorites as $favorite)
                                     <tr>
-                                        <td class="text-center">{{$loop->index+1}}</td>
-                                        <td class="text-center">{{$favorite->product->title}}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-warning" href="{{route('address.edit', $address->id)}}">ویرایش</a>
-                                            <a type="submit" class="btn btn-danger" href="{{route('address.delete', $address->id)}}">حذف</a>
-                                        </td>
+                                        <td class="text-center"><a href="{{route('products.single',['id'=>$favorite->product->id])}}">{{$loop->index+1}}</a></td>
+                                        <td class="text-center"><a href="{{route('products.single',['id'=>$favorite->product->id])}}">{{$favorite->product->title}}</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

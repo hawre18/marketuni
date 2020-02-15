@@ -1,6 +1,6 @@
-@extends('frontend.layout.master')
+@extends('frontend.layout.master-product')
 @section('content')
-    <div id="app" class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
         <div class="row">
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ul class="list-unstyled description">
-                                <li><b>برند :</b> <a href="#"><span itemprop="brand">{{$product->brand->title}}</span></a></li>
+                                <li><b>برند :</b> <span itemprop="brand">{{$product->brand->title}}</span></li>
                                 <li><b>کد محصول :</b> <span itemprop="mpn">{{$product->sku}}</span>
                                     @if(Auth::user())
                                     <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{$product->id}}').submit();">
@@ -65,14 +65,19 @@
                                 @if(Auth::check())
                                 <span>لطفا به محصول امتیاز دهید</span>
                                 <star-rating :star-size="20" :increment="0.5" v-model="rating"></star-rating>
-                                <button @click="setRating()" class="btn btn-primary">ثبت نظر</button>
-                                @endif
+                                <button @click="setRating()" class="btn btn-primary">ثبت امتیاز</button>
+                                    <br/>
+                                    <span>امتیاز محصول به انتخاب کاربران</span>
+                                    <br/>
+                                    <star-rating :inline="true" :read-only="true" :show-rating="false" :star-size="20" v-model="totalRating" :increment="0.1" active-color="#000000"></star-rating>
+                                @else
                                 <br/>
                                 <span>امتیاز محصول به انتخاب کاربران</span>
                                 <br/>
                                 <star-rating :inline="true" :read-only="true" :show-rating="false" :star-size="20" v-model="totalRating" :increment="0.1" active-color="#000000"></star-rating>
                                 <br/>
                                 <span>برای افزودن به لیست علاقه مندی ها ابتدا <a href="{{route('register')}}">ثبت نام کنید</a>/<a href="{{route('login')}}">وارد شوید</a></span>
+                                    @endif
                             </div>
                         </div>
                     </div>

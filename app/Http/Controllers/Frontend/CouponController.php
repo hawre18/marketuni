@@ -13,6 +13,10 @@ class CouponController extends Controller
 {
     public function addCoupon(Request $request)
     {
+        $validatedData = $request->validate([
+            'code' => 'required|min:3|max:255',
+        ]);
+        try{
         $check=Auth::user()->whereHas('coupons',function ($q) use($request){
             $q->where('code',$request->code);
         })->exists();
@@ -30,6 +34,10 @@ class CouponController extends Controller
         }else{
             Session::flash('expired','شما قبلا از این کد تخفیف استفاده کرده اید');
             return back();
+        }
+        } catch (\Exception $m){
+            Session::flash('coupon_error','خطایی در استفاده از کد تخفیف به وجود آمده لطفا مجددا تلاش کنید');
+            return redirect()->back();
         }
     }
 

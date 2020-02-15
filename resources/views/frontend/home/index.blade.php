@@ -136,6 +136,7 @@
                         </div>
                     </div>    <!-- محصولات Tab Start -->
                     <!-- برند Logo Carousel Start-->
+                    <h3 class="card-header-tabs">برندها</h3>
                     <div id="carousel" class="owl-carousel nxt">
                         @foreach($brands as $brand)
                             <div class="item image"> <a href="{{route('category.single',['id'=>$brand->id])}}"><img class="img-responsive"  src="{{$brand->photo->path}}"/></a> </div>

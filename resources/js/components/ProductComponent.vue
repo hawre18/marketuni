@@ -35,10 +35,10 @@
                         </div>
                     </div>
                     <div class="col-sm-2 text-right">
-                        <label class="control-label">مرتب سازی :</label>
+                        <label class="control-label" for="sel">مرتب سازی :</label>
                     </div>
                     <div class="col-md-3 col-sm-2 text-right">
-                        <select class="form-control col-sm-3" v-model="sort" @change="getSortedProduct()">
+                        <select id="sel" class="form-control" v-model="sort" @change="getSortedProduct()">
                             <option value="ASC">قیمت (کم به زیاد)</option>
                             <option value="DESC">قیمت (زیاد به کم)</option>
                         </select>
